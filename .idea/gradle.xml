@@ -8,8 +8,10 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/absactivity" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/gsonhelper" />
+            <option value="$PROJECT_DIR$/kotandroid" />
             <option value="$PROJECT_DIR$/retrofithelper" />
             <option value="$PROJECT_DIR$/topnavbar" />
           </set>
