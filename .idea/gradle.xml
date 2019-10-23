@@ -11,6 +11,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/gsonhelper" />
             <option value="$PROJECT_DIR$/retrofithelper" />
+            <option value="$PROJECT_DIR$/topnavbar" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

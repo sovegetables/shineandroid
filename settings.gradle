@@ -1,2 +1,2 @@
-include ':app', ':gsonhelper', ':retrofithelper'
+include ':app', ':gsonhelper', ':retrofithelper', ':topnavbar'
 rootProject.name='shineandroid'
