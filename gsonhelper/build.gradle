@@ -6,6 +6,14 @@ dependencies {
     testImplementation 'junit:junit:4.12'
 }
 
+repositories {
+    mavenCentral()
+    maven{url 'https://jitpack.io'}
+}
+
+
 group='com.github.sovegetables'
+version '0.0.5'
+
 sourceCompatibility = "7"
 targetCompatibility = "7"
