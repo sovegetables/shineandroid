@@ -74,7 +74,6 @@ class MainActivity : AppCompatActivity() {
             .build(this)
         action_bar_2.setUpTopBar(topBar2)
 
-
         Handler().postDelayed({
             action_bar.topBarUpdater
                 .title("更新标题1")
