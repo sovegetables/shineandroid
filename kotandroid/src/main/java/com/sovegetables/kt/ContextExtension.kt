@@ -1,4 +1,4 @@
-package com.sovegetables
+package com.sovegetables.kt
 
 import android.annotation.SuppressLint
 import android.app.ActivityManager
@@ -52,7 +52,11 @@ object ToastHelper {
         if (con == null) {
             return
         }
-        toast(con, con.getString(resId), duration)
+        toast(
+            con,
+            con.getString(resId),
+            duration
+        )
     }
 
     fun toast(con: Context?, text: String?, duration: Int = Toast.LENGTH_SHORT) {

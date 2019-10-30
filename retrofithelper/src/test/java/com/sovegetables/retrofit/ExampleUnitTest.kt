@@ -1,4 +1,4 @@
-package com.sovegetables.retrofithelper
+package com.sovegetables.retrofit
 
 import org.junit.Test
 
