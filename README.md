@@ -1,5 +1,7 @@
 [![](https://jitpack.io/v/sovegetables/shineandroid.svg)](https://jitpack.io/#sovegetables/shineandroid)
 ### TopNavBar
+![sample](./img/ic_top_nav_bar.jpg){:width="270px"}
+
 #### Dependencies
 ```gradle
     maven { url "https://jitpack.io" }
