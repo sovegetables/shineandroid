@@ -26,10 +26,20 @@ android {
 }
 
 dependencies {
+    def gsonVersion = '2.8.5'
+    def retrofitVersion = '2.5.0'
+    def okhttpVersion = '3.11.0'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.core:core-ktx:1.1.0'
+    implementation "com.google.code.gson:gson:$gsonVersion"
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    api "com.squareup.okhttp3:okhttp:$okhttpVersion"
+    implementation ("com.squareup.retrofit2:converter-gson:$retrofitVersion"){
+        exclude group:'com.squareup.retrofit2', module:'retrofit'
+    }
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'

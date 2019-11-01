@@ -47,7 +47,7 @@ fun Context.getProcessName(): String? {
 
 @SuppressLint("ShowToast")
 object ToastHelper {
-    var mToast: Toast? = null
+    private var mToast: Toast? = null
     fun toast(con: Context?, resId: Int,duration: Int = Toast.LENGTH_SHORT) {
         if (con == null) {
             return

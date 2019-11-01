@@ -4,17 +4,62 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.View
 import com.sovegetables.kt.toast
+import com.sovegetables.logger.ILog
+import com.sovegetables.logger.Logger
 import com.sovegetables.topnavbar.TopBar
 import com.sovegetables.topnavbar.TopBarItem
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    companion object {
+        private const val TAG = "MainActivity"
+
+        init {
+
+//            Logger.setDelegate(LogImpl())
+            val logImpl = Logger.Delegates()
+            logImpl.addDelegate(LogImpl())
+            logImpl.addDelegate(Logger.ANDROID)
+            Logger.setDelegate(logImpl)
+        }
+    }
+
+    class LogImpl: ILog(){
+        override fun println(priority: LEVEL, tag: String?, msg: String?) {
+            when(priority){
+                LEVEL.VERBOSE -> {
+                    // TODO: 2019/11/1
+                    Log.d("LogImpl", "VERBOSE: ")
+                }
+                LEVEL.DEBUG -> {
+                    // TODO: 2019/11/1
+                    Log.d("LogImpl", "DEBUG: ")
+                }
+                LEVEL.INFO -> {
+                    // TODO: 2019/11/1
+                    Log.d("LogImpl", "INFO: ")
+                }
+                LEVEL.WARN -> {
+                    // TODO: 2019/11/1
+                    Log.d("LogImpl", "WARN: ")
+                }
+                LEVEL.ERROR -> {
+                    // TODO: 2019/11/1
+                    Log.d("LogImpl", "ERROR: ")
+                }
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        Logger.d(TAG, "onCreate-----")
 
         val left = TopBarItem.Builder()
             .icon(R.drawable.ic_baseline_menu_24)
