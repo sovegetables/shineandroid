@@ -1,8 +1,7 @@
 [![](https://jitpack.io/v/sovegetables/shineandroid.svg)](https://jitpack.io/#sovegetables/shineandroid)
 ### TopNavBar
-
 <p align="left">
-	<img src="./img/ic_top_nav_bar.jpg" width="270">
+	<img src="http://www.liuguangbo.com:9020/ic_top_nav_bar.jpg" width="270">
 </p>
 
 #### Dependencies
