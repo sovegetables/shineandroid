@@ -1,6 +1,9 @@
 [![](https://jitpack.io/v/sovegetables/shineandroid.svg)](https://jitpack.io/#sovegetables/shineandroid)
 ### TopNavBar
-![sample](./img/ic_top_nav_bar.jpg){:width="270px"}
+
+<p align="left">
+	<img src="./img/ic_top_nav_bar.jpg" width="270">
+</p>
 
 #### Dependencies
 ```gradle
