@@ -19,8 +19,6 @@ class MainActivity : AppCompatActivity() {
         private const val TAG = "MainActivity"
 
         init {
-
-//            Logger.setDelegate(LogImpl())
             val logImpl = Logger.Delegates()
             logImpl.addDelegate(LogImpl())
             logImpl.addDelegate(Logger.ANDROID)

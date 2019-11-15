@@ -3,6 +3,8 @@ package com.sovegetables.retrofit;
 
 import androidx.annotation.NonNull;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
@@ -21,6 +23,7 @@ import okio.Okio;
 
 public class EncryptInterceptor implements Interceptor{
 
+    @NotNull
     @Override
     public Response intercept(@NonNull Chain chain) throws IOException {
         Request request = chain.request();

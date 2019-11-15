@@ -20,9 +20,7 @@ class Logger private constructor() : ILog(){
     class Delegates : ILog(){
         private val delegates = arrayListOf<ILog>()
         fun addDelegate(log: ILog?){
-            if(log == null){
-                throw IllegalArgumentException("log can't be null !!!")
-            }
+            requireNotNull(log) { "ILog can't be null !!!" }
             delegates.add(log)
         }
 

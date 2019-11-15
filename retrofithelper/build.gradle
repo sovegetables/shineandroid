@@ -35,11 +35,9 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.1.0'
     implementation "com.google.code.gson:gson:$gsonVersion"
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
-    api "com.squareup.okhttp3:okhttp:$okhttpVersion"
-    implementation ("com.squareup.retrofit2:converter-gson:$retrofitVersion"){
-        exclude group:'com.squareup.retrofit2', module:'retrofit'
-    }
-
+    implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
+//    implementation 'com.github.sovegetables.shineandroid:logger:0.0.10'
+    implementation project(':logger')
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
