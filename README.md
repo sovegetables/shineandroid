@@ -1,5 +1,5 @@
 [![](https://jitpack.io/v/sovegetables/shineandroid.svg)](https://jitpack.io/#sovegetables/shineandroid)
-### TopNavBar
+## TopNavBar
 <p align="left">
 	<img src="http://www.liuguangbo.com:9020/ic_top_nav_bar.jpg" width="270">
 </p>
@@ -10,7 +10,7 @@
     implementation 'com.github.sovegetables.shineandroid:topnavbar:0.0.10'
 ```
 #### Usage
-
+- Layout
 ```xml
 <com.sovegetables.topnavbar.ActionBarView
         android:id="@+id/action_bar"
@@ -18,8 +18,8 @@
         android:layout_height="wrap_content" />
 ```
 
+- Setup
 ```kotlin
-//Setup
 val left = TopBarItem.Builder()
     .icon(R.drawable.ic_baseline_menu_24)
     .listener {
@@ -54,18 +54,19 @@ val topBar = TopBar.Builder()
     .topBarColorRes(R.color.colorPrimary)
     .build(this)
 action_bar.setUpTopBar(topBar)
+```
 
-
-//Dynamic Change ActionBar
+- Dynamic Change ActionBar
+```kotlin
 action_bar.topBarUpdater
     .title("更新标题1")
     .titleColorRes(R.color.colorAccent)
     .topBarColor(Color.BLACK)
-    .update();
+    .update()
     
 action_bar.findRightItemUpdaterById(3)
     .visibility(View.VISIBLE)
-    .update()    
+    .update()
 ```
 
 #### Support
@@ -74,7 +75,7 @@ action_bar.findRightItemUpdaterById(3)
 - 动态改变ActionBar的title, 背景颜色，右上角icon可见性等
 
 
-### GsonHelper
+## GsonHelper
 #### Dependencies
 ```gradle
     maven { url "https://jitpack.io" }
@@ -92,7 +93,7 @@ action_bar.findRightItemUpdaterById(3)
 - MistakeListDeserializer提高List反序列化容错, 实质需要"array":[], 但是实质是"array":""或者"array":{},也不会导致解析报错
 
 
-### Logger
+## Logger
 #### Dependencies
 ```gradle
     maven { url "https://jitpack.io" }
@@ -104,7 +105,7 @@ action_bar.findRightItemUpdaterById(3)
 ```
 
 
-```text
+```kotlin
     //自定义用法, 也可以添加多个Log Delegate
     class LogImpl: ILog(){
         override fun println(priority: LEVEL, tag: String?, msg: String?) {
@@ -131,20 +132,14 @@ action_bar.findRightItemUpdaterById(3)
     companion object {
         init {
             Logger.setDelegate(LogImpl())
-        }
-    }
-    
-    //或者
-    
-    companion object{
-        init {
+            
+            //或者
             val logImpl = Logger.Delegates()
             logImpl.addDelegate(LogImpl())
             logImpl.addDelegate(Logger.ANDROID)
             Logger.setDelegate(logImpl)
         }
     }
-    
     
 ```
 
