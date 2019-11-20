@@ -23,6 +23,12 @@ public class GsonHelper {
                 .registerTypeAdapter(boolean.class, new MistakeBooleanDeserializer())
                 .registerTypeAdapter(Integer.class, new MistakeIntDeserializer())
                 .registerTypeAdapter(int.class, new MistakeIntDeserializer())
+                .registerTypeAdapter(float.class, new MistakeFloatDeserializer())
+                .registerTypeAdapter(Float.class, new MistakeFloatDeserializer())
+                .registerTypeAdapter(long.class, new MistakeLongDeserializer())
+                .registerTypeAdapter(Long.class, new MistakeLongDeserializer())
+                .registerTypeAdapter(double.class, new MistakeDoubleDeserializer())
+                .registerTypeAdapter(Double.class, new MistakeDoubleDeserializer())
                 .registerTypeAdapter(List.class, new MistakeListDeserializer())
                 .addSerializationExclusionStrategy(new SkipExclusionStrategy())
                 .addDeserializationExclusionStrategy(new SkipExclusionStrategy())
@@ -31,6 +37,10 @@ public class GsonHelper {
 
     public static Gson commonGson(){
         return sGsonHelper.sGson;
+    }
+
+    public static GsonBuilder cloneGsonBuilder(){
+        return sGsonHelper.sGson.newBuilder();
     }
 
     public static String toJson(Object src){

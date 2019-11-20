@@ -133,8 +133,11 @@ public class GsonHelperTest {
     @Test
     public void test_NotNullStringDeserializer(){
         String fromJson = "{\"name\":\"苹果\", \"origin\":null}";
-        Fruit fruit = GsonHelper.fromJson(fromJson, Fruit.class);
-        Assert.assertNotNull(fruit.origin);
+        Fruit fruit = GsonHelper.cloneGsonBuilder()
+                .registerTypeAdapter(String.class, new NotNullStringDeserializer())
+                .create()
+                .fromJson(fromJson, Fruit.class);
+        Assert.assertNull(fruit.origin);
         fruit = new Gson().fromJson(fromJson, Fruit.class);
         Assert.assertNull(fruit.origin);
     }
