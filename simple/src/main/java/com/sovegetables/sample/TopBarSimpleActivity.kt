@@ -13,10 +13,10 @@ import com.sovegetables.topnavbar.TopBar
 import com.sovegetables.topnavbar.TopBarItem
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class TopBarSimpleActivity : AppCompatActivity() {
 
     companion object {
-        private const val TAG = "MainActivity"
+        private const val TAG = "TopBarSimpleActivity"
 
         init {
             val logImpl = Logger.Delegates()

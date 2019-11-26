@@ -6,84 +6,84 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.ColorRes;
 import androidx.core.content.ContextCompat;
 
-public class TopBarUpdater {
+public abstract class TopBarUpdater {
 
-    ActionBarView actionBarView;
-    private static final int INVALID = -1;
-    private static final String INVALID_TITLE = "-1";
+    protected static final int INVALID = -1;
+    protected static final String INVALID_TITLE = "-1";
 
-    private CharSequence title = INVALID_TITLE;
+    protected CharSequence title = INVALID_TITLE;
     @ColorInt
-    private int titleColor = INVALID;
+    protected int titleColor = INVALID;
     @ColorInt
-    private int topBarColor = INVALID;
+    protected int topBarColor = INVALID;
     @ColorRes
-    private int titleColorRes = INVALID;
+    protected int titleColorRes = INVALID;
     @ColorRes
-    private int topBarColorRes = INVALID;
+    protected int topBarColorRes = INVALID;
 
     TopBarUpdater() {
         //no instance
     }
 
-    /*public TopBarItem left(){
-
-    }
-
-    public List<TopBarItem> rights(){
-
-    }*/
-
-    public TopBarUpdater title(CharSequence title){
+    public final TopBarUpdater title(CharSequence title){
         this.title = title;
         return this;
     }
 
-    public TopBarUpdater titleColor(@ColorInt int titleColor){
+    public final TopBarUpdater titleColor(@ColorInt int titleColor){
         this.titleColor = titleColor;
         return this;
     }
 
-    public TopBarUpdater titleColorRes(@ColorRes int titleColorRes){
+    public final TopBarUpdater titleColorRes(@ColorRes int titleColorRes){
         this.topBarColorRes = titleColorRes;
         return this;
     }
 
-    public TopBarUpdater topBarColor(@ColorInt int topBarColor){
+    public final TopBarUpdater topBarColor(@ColorInt int topBarColor){
         this.topBarColor = topBarColor;
         return this;
     }
 
-    public TopBarUpdater topBarColorRes(@ColorRes int topBarColorRes){
+    public final TopBarUpdater topBarColorRes(@ColorRes int topBarColorRes){
         this.topBarColorRes = topBarColorRes;
         return this;
     }
 
-    public void update(){
-        final CharSequence title = this.title;
-        final Context context = actionBarView.getContext();
-        if(!INVALID_TITLE.equalsIgnoreCase(title.toString())){
-            actionBarView.mTvTitle.setText(title);
+    public abstract void update();
+
+    static class TopBarUpdaterImpl extends TopBarUpdater{
+        ActionBarView actionBarView;
+
+        TopBarUpdaterImpl(ActionBarView actionBarView) {
+            this.actionBarView = actionBarView;
         }
 
-        final int titleColor = this.titleColor;
-        if(titleColor != INVALID){
-            actionBarView.mTvTitle.setTextColor(titleColor);
-        }
+        @Override
+        public void update(){
+            final CharSequence title = this.title;
+            final Context context = actionBarView.getContext();
+            if(!INVALID_TITLE.equalsIgnoreCase(title.toString())){
+                actionBarView.mTvTitle.setText(title);
+            }
+            final int titleColor = this.titleColor;
+            if(titleColor != INVALID){
+                actionBarView.mTvTitle.setTextColor(titleColor);
+            }
+            final int titleColorRes = this.titleColorRes;
+            if(titleColorRes != INVALID){
+                actionBarView.mTvTitle.setTextColor(ContextCompat.getColor(context, titleColorRes));
+            }
 
-        final int titleColorRes = this.titleColorRes;
-        if(titleColorRes != INVALID){
-            actionBarView.mTvTitle.setTextColor(ContextCompat.getColor(context, titleColorRes));
-        }
+            final int topBarColor = this.topBarColor;
+            if(topBarColor != INVALID){
+                actionBarView.setBackgroundColor(topBarColor);
+            }
 
-        final int topBarColor = this.topBarColor;
-        if(topBarColor != INVALID){
-            actionBarView.setBackgroundColor(topBarColor);
-        }
-
-        final int topBarColorRes = this.topBarColorRes;
-        if(topBarColorRes != INVALID){
-            actionBarView.setBackgroundColor(ContextCompat.getColor(context, topBarColorRes));
+            final int topBarColorRes = this.topBarColorRes;
+            if(topBarColorRes != INVALID){
+                actionBarView.setBackgroundColor(ContextCompat.getColor(context, topBarColorRes));
+            }
         }
     }
 }

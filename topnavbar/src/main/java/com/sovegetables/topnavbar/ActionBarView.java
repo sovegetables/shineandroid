@@ -104,8 +104,7 @@ public class ActionBarView extends FrameLayout implements ITopBarAction{
     @Override
     public TopBarItemUpdater leftItemUpdater() {
         if(mLeftItemUpdater == null){
-            mLeftItemUpdater = new TopBarItemUpdater();
-            mLeftItemUpdater.textView = mTvLeft;
+            mLeftItemUpdater = new TopBarItemUpdater.TopBarItemUpdaterImpl(mTvLeft);
         }
         return mLeftItemUpdater;
     }
@@ -118,8 +117,7 @@ public class ActionBarView extends FrameLayout implements ITopBarAction{
         for (int i = 0,len = rights.size(); i < len; i++){
             topBarItem = rights.get(i);
             if(topBarItem.id() == id){
-                updater = new TopBarItemUpdater();
-                updater.textView = getTextView(i, len);
+                updater = new TopBarItemUpdater.TopBarItemUpdaterImpl(getTextView(i, len));
                 break;
             }
         }
@@ -129,8 +127,7 @@ public class ActionBarView extends FrameLayout implements ITopBarAction{
     @Override
     public TopBarUpdater getTopBarUpdater() {
         if(mTopBarUpdater == null){
-            mTopBarUpdater = new TopBarUpdater();
-            mTopBarUpdater.actionBarView = this;
+            mTopBarUpdater = new TopBarUpdater.TopBarUpdaterImpl(this);
         }
         return mTopBarUpdater;
     }

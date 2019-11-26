@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <com.sovegetables.topnavbar.ActionBarView
+        android:id="@+id/delegate_action_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="4dp"
+        >
+    </com.sovegetables.topnavbar.ActionBarView>
+
+    <FrameLayout
+        android:id="@+id/fl_base_delegate_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/delegate_action_bar"
+        >
+    </FrameLayout>
+
+</RelativeLayout>
