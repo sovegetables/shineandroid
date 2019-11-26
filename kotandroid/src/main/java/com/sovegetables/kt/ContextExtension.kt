@@ -1,6 +1,7 @@
 package com.sovegetables.kt
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.ActivityManager
 import android.content.ContentResolver
 import android.content.Context
@@ -43,7 +44,6 @@ fun Context.getProcessName(): String? {
     }
     return null
 }
-
 
 @SuppressLint("ShowToast")
 object ToastHelper {

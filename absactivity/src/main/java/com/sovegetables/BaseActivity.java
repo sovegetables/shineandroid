@@ -18,7 +18,7 @@ import com.sovegetables.topnavbar.TopBarItem;
 public abstract class BaseActivity extends AppCompatActivity {
 
     static IContentViewDelegate defaultContentViewDelegate;
-    @DrawableRes static int leftTopItemIconRes;
+    @DrawableRes static int leftTopItemIconRes = R.drawable.ic_delegate_arrow_back;
 
     public static void setDefaultContentViewDelegate(IContentViewDelegate defaultContentViewDelegate) {
         BaseActivity.defaultContentViewDelegate = defaultContentViewDelegate;
