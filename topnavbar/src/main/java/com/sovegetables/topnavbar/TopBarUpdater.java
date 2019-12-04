@@ -36,7 +36,7 @@ public abstract class TopBarUpdater {
     }
 
     public final TopBarUpdater titleColorRes(@ColorRes int titleColorRes){
-        this.topBarColorRes = titleColorRes;
+        this.titleColorRes = titleColorRes;
         return this;
     }
 
