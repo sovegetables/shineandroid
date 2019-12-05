@@ -30,23 +30,18 @@ class TopBarSimpleActivity : AppCompatActivity() {
         override fun println(priority: LEVEL, tag: String?, msg: String?) {
             when(priority){
                 LEVEL.VERBOSE -> {
-                    // TODO: 2019/11/1
                     Log.d("LogImpl", "VERBOSE: ")
                 }
                 LEVEL.DEBUG -> {
-                    // TODO: 2019/11/1
                     Log.d("LogImpl", "DEBUG: ")
                 }
                 LEVEL.INFO -> {
-                    // TODO: 2019/11/1
                     Log.d("LogImpl", "INFO: ")
                 }
                 LEVEL.WARN -> {
-                    // TODO: 2019/11/1
                     Log.d("LogImpl", "WARN: ")
                 }
                 LEVEL.ERROR -> {
-                    // TODO: 2019/11/1
                     Log.d("LogImpl", "ERROR: ")
                 }
             }

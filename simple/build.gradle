@@ -41,8 +41,5 @@ dependencies {
     implementation project(':topnavbar')
     implementation project(':logger')
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
-    implementation 'com.github.sovegetables.recyclerviewadapter:adapter:0.1.1'
-
-//    implementation 'com.github.sovegetables.shineandroid:gsonhelper:0.0.8'
-
+    implementation 'com.github.sovegetables.recyclerviewadapter:adapter:0.1.2'
 }
