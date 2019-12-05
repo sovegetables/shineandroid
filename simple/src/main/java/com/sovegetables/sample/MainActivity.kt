@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.widget.TextView
 import com.sovegetables.BaseActivity
 import com.sovegetables.adapter.AbsListAdapter
-import com.sovegetables.adapter.LazyRecyclerViewHolder
+import com.sovegetables.adapter.CommonViewHolder
 import com.sovegetables.topnavbar.TopBar
 import com.sovegetables.topnavbar.TopBarItem
 import kotlinx.android.synthetic.main.activity_main2.*
@@ -18,7 +18,7 @@ class MainActivity : BaseActivity() {
         setContentView(R.layout.activity_main2)
 
         val adapter = object : AbsListAdapter<MainItem>() {
-            override fun onBindView(holder: LazyRecyclerViewHolder, t: MainItem, position: Int) {
+            override fun onBindView(holder: CommonViewHolder, t: MainItem, position: Int) {
                 val tvTitle = holder.findViewById<TextView>(R.id.tv_title)
                 tvTitle.text = t.title
             }
