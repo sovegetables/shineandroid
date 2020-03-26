@@ -11,7 +11,7 @@ import com.sovegetables.logger.ILog
 import com.sovegetables.logger.Logger
 import com.sovegetables.topnavbar.TopBar
 import com.sovegetables.topnavbar.TopBarItem
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_topbar_sample.*
 
 class TopBarSimpleActivity : AppCompatActivity() {
 
@@ -50,7 +50,7 @@ class TopBarSimpleActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_topbar_sample)
 
         Logger.d(TAG, "onCreate-----")
 

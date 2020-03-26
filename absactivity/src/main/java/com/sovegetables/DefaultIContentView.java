@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import com.sovegetables.topnavbar.ActionBarView;
 import com.sovegetables.topnavbar.ITopBarAction;
 
-public class DefaultIContentViewDelegate implements IContentViewDelegate {
+public class DefaultIContentView implements IContentView {
 
     private ActionBarView actionBarView;
     private FrameLayout flContent;

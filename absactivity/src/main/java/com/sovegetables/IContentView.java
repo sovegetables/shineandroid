@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 
 import com.sovegetables.topnavbar.ITopBarAction;
 
-public interface IContentViewDelegate {
+public interface IContentView {
     @NonNull View onCreateContentView(View view);
     @NonNull ITopBarAction onCreateTopBarAction();
 }

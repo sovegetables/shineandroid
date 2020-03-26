@@ -17,10 +17,10 @@ import com.sovegetables.topnavbar.TopBarItem;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
-    static IContentViewDelegate defaultContentViewDelegate;
+    static IContentView defaultContentViewDelegate;
     @DrawableRes static int leftTopItemIconRes = R.drawable.ic_delegate_arrow_back;
 
-    public static void setDefaultContentViewDelegate(IContentViewDelegate defaultContentViewDelegate) {
+    public static void setDefaultContentViewDelegate(IContentView defaultContentViewDelegate) {
         BaseActivity.defaultContentViewDelegate = defaultContentViewDelegate;
     }
 
@@ -50,7 +50,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void setContentView(View view) {
         defaultContentViewDelegate = getContentViewDelegate();
         if(defaultContentViewDelegate == null){
-            defaultContentViewDelegate = new DefaultIContentViewDelegate();
+            defaultContentViewDelegate = new DefaultIContentView();
         }
         View realContentView = defaultContentViewDelegate.onCreateContentView(view);
         if(realContentView == null){
@@ -107,7 +107,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                 .title(title);
     }
 
-    protected <T extends IContentViewDelegate> T getContentViewDelegate(){
+    protected <T extends IContentView> T getContentViewDelegate(){
         return null;
     }
 

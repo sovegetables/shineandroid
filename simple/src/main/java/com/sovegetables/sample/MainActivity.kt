@@ -9,13 +9,13 @@ import com.sovegetables.adapter.AbsListAdapter
 import com.sovegetables.adapter.CommonViewHolder
 import com.sovegetables.topnavbar.TopBar
 import com.sovegetables.topnavbar.TopBarItem
-import kotlinx.android.synthetic.main.activity_main2.*
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main2)
+        setContentView(R.layout.activity_main)
 
         val adapter = object : AbsListAdapter<MainItem>() {
             override fun onBindView(holder: CommonViewHolder, t: MainItem, position: Int) {
@@ -33,8 +33,9 @@ class MainActivity : BaseActivity() {
             startActivity(intent)
         }
         val list = arrayListOf<MainItem>()
-        list.add(MainItem("标题栏 Sample", TopBarSimpleActivity::class.java))
+        list.add(MainItem("标题栏Sample", TopBarSimpleActivity::class.java))
         list.add(MainItem("BaseActivity Sample", BaseActivitySampleActivity::class.java))
+        list.add(MainItem("权限Sample", PermissionSampleMainActivity::class.java))
         adapter.items = list
         rv_sample.adapter = adapter
     }

@@ -1,36 +1,37 @@
 package com.sovegetables.topnavbar;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.FrameLayout;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.ViewCompat;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class ActionBarView extends FrameLayout implements ITopBarAction{
+public class ActionBarView extends ConstraintLayout implements ITopBarAction{
 
     private static final String TAG = "ActionBarView";
-    public static final int ACTION_VIEW_MAX_COUNT = 3;
+    static final int ACTION_VIEW_MAX_COUNT = 3;
     private TextView mTvLeft;
     TextView mTvTitle;
     private final List<TextView> mActionViews = new ArrayList<>();
     private int mHeight;
-    private View mViewPlaceHolder;
     private static final float ELEVATION = 6;
     private TopBarItemUpdater mLeftItemUpdater;
     private TopBarUpdater mTopBarUpdater;
     private TopBar mTopBar;
+    private View mLeftAnchor;
+    private View mRightAnchor;
+    private View mRightActionLayout;
 
     public ActionBarView(Context context) {
         super(context, null);
@@ -47,15 +48,13 @@ public class ActionBarView extends FrameLayout implements ITopBarAction{
         init(context);
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public ActionBarView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        init(context);
-    }
-
     private void init(Context context) {
         inflate(context, R.layout.layout_action_bar, this);
         mTvLeft = findViewById(R.id.tv_action_bart_left);
+        mLeftAnchor = findViewById(R.id.view_left_empty);
+        mRightAnchor = findViewById(R.id.view_right_empty);
+        mRightActionLayout = findViewById(R.id.ll_right_action);
+
         TextView tvAction1 = findViewById(R.id.tv_action_bar_01);
         TextView tvAction2 = findViewById(R.id.tv_action_bar_02);
         TextView tvAction3 = findViewById(R.id.tv_action_bar_03);
@@ -64,7 +63,6 @@ public class ActionBarView extends FrameLayout implements ITopBarAction{
         mActionViews.add(tvAction3);
         mTvTitle = findViewById(R.id.tv_action_bar_title);
         mHeight = context.getResources().getDimensionPixelSize(R.dimen.d_action_bar_height);
-        mViewPlaceHolder = findViewById(R.id.view_place_holder);
         float elevation = ViewCompat.getElevation(this);
         if(elevation == 0){
             int defElevation = (int) (getResources().getDisplayMetrics().density * ELEVATION);
@@ -78,14 +76,34 @@ public class ActionBarView extends FrameLayout implements ITopBarAction{
         if(mode == MeasureSpec.AT_MOST){
             super.onMeasure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(mHeight, MeasureSpec.EXACTLY));
             int parentWidth = MeasureSpec.getSize(widthMeasureSpec);
+            fixTitleCenter();
             setMeasuredDimension(parentWidth, mHeight);
         }else {
+            fixTitleCenter();
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         }
+    }
 
-        int tvLeftMeasuredWidth = mTvLeft.getMeasuredWidth();
-        if(mViewPlaceHolder.getLayoutParams().width == 0){
-            mViewPlaceHolder.getLayoutParams().width = tvLeftMeasuredWidth;
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+        fixTitleCenter();
+    }
+
+    /**
+     * 保证Title居中
+     */
+    private void fixTitleCenter() {
+        int maxWidth = Math.max(mTvLeft.getWidth(), mRightActionLayout.getWidth());
+        ViewGroup.LayoutParams leftLayoutParams = mLeftAnchor.getLayoutParams();
+        if(maxWidth != leftLayoutParams.width && maxWidth > 0){
+            leftLayoutParams.width = maxWidth;
+            mLeftAnchor.setLayoutParams(leftLayoutParams);
+        }
+        ViewGroup.LayoutParams rightLayoutParams = mRightAnchor.getLayoutParams();
+        if(maxWidth != rightLayoutParams.width && maxWidth > 0){
+            rightLayoutParams.width = maxWidth;
+            mRightAnchor.setLayoutParams(rightLayoutParams);
         }
     }
 

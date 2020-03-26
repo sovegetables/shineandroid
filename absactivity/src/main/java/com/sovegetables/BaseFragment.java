@@ -14,12 +14,12 @@ import com.sovegetables.topnavbar.TopBar;
 
 public abstract class BaseFragment extends Fragment {
 
-    private static IContentViewDelegate sDefaultContentViewDelegate;
+    private static IContentView sDefaultContentViewDelegate;
 
     @NonNull
     protected ITopBarAction topBarAction;
 
-    public static void setsDefaultContentViewDelegate(IContentViewDelegate defaultContentViewDelegate) {
+    public static void setsDefaultContentViewDelegate(IContentView defaultContentViewDelegate) {
         sDefaultContentViewDelegate = defaultContentViewDelegate;
     }
 
@@ -29,7 +29,7 @@ public abstract class BaseFragment extends Fragment {
         View contentView = onBaseCreateView(inflater, container, savedInstanceState);
         sDefaultContentViewDelegate = getContentViewDelegate();
         if(sDefaultContentViewDelegate == null){
-            sDefaultContentViewDelegate = new DefaultIContentViewDelegate();
+            sDefaultContentViewDelegate = new DefaultIContentView();
         }
         View realContentView = sDefaultContentViewDelegate.onCreateContentView(contentView);
         if(realContentView == null){
@@ -47,7 +47,7 @@ public abstract class BaseFragment extends Fragment {
         return TopBar.NO_ACTION_BAR;
     }
 
-    protected IContentViewDelegate getContentViewDelegate() {
+    protected IContentView getContentViewDelegate() {
         return null;
     }
 

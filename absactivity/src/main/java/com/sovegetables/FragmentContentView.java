@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 
 import com.sovegetables.topnavbar.ITopBarAction;
 
-public class FragmentContentViewDelegate implements IContentViewDelegate {
+public class FragmentContentView implements IContentView {
 
     @NonNull
     @Override
