@@ -2,7 +2,7 @@
 
 ## TopNavBar
 <p align="left">
-	<img src="http://www.liuguangbo.com:9020/ic_top_nav_bar.jpg" width="270">
+	<img src="../img/ic_top_nav_bar.jpg" width="270">
 </p>
 
 #### Dependencies

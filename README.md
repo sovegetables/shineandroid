@@ -19,3 +19,7 @@
 ## [AbsActivity](./absactivity)
 - 一个方便的BaseActivity，简单继承即可，不用改变原来的setContentView逻辑
 - 支持顶部导航栏 -> [TopNavBar](./topnavbar)
+
+## [Runtime Permission](./permission)
+- Android M Runtime Permission
+- Support Kotlin
