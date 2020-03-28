@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.sovegetables.sample">
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
@@ -16,9 +16,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".BaseActivitySampleActivity"></activity>
-        <activity android:name=".PermissionSampleActivity"></activity>
-        <activity android:name=".PermissionSampleMainActivity"></activity>
+        <activity android:name=".TextCrumbsActivity"></activity>
+        <activity android:name=".BaseActivitySampleActivity" />
+        <activity android:name=".PermissionSampleActivity" />
+        <activity android:name=".PermissionSampleMainActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,7 +27,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TopBarSimpleActivity"></activity>
+        <activity android:name=".TopBarSimpleActivity" />
     </application>
 
 </manifest>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                                        android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/selector_crumb_item"
+    android:clickable="true"
+    android:focusable="true"
+    android:gravity="center"
+    android:minHeight="40dp"
+    android:paddingLeft="16dp"
+    android:paddingTop="10dp"
+    android:paddingRight="16dp"
+    android:paddingBottom="10dp"
+    android:textColor="@drawable/selector_crumb_item_text_color"
+    android:textSize="14sp" />

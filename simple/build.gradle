@@ -34,13 +34,29 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     implementation project(':gsonhelper')
+//    implementation 'com.github.sovegetables.shineandroid:gsonhelper:0.1.3'
+
     implementation project(':retrofithelper')
-    implementation project(':topnavbar')
+//    implementation 'com.github.sovegetables.shineandroid:retrofithelper:0.1.3'
+
     implementation project(':absactivity')
+//    implementation 'com.github.sovegetables.shineandroid:absactivity:0.1.3'
+
     implementation project(':kotandroid')
+//    implementation 'com.github.sovegetables.shineandroid:kotandroid:0.1.3'
+
     implementation project(':topnavbar')
+//    implementation 'com.github.sovegetables.shineandroid:topnavbar:0.1.3'
+
     implementation project(':logger')
+//    implementation 'com.github.sovegetables.shineandroid:logger:0.1.3'
+
     implementation project(':permission')
+//    implementation 'com.github.sovegetables.shineandroid:permission:0.1.3'
+
+    implementation project(':textcrumbs')
+
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'com.github.sovegetables:systembarhelper:0.1.2'
     implementation 'com.github.sovegetables.recyclerviewadapter:adapter:0.1.6'
 }

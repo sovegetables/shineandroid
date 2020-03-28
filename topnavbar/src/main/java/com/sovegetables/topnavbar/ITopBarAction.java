@@ -5,5 +5,5 @@ public interface ITopBarAction {
     TopBarItemUpdater leftItemUpdater();
     TopBarItemUpdater findRightItemUpdaterById(int id);
     TopBarUpdater getTopBarUpdater();
-    ITopBarAction NO_TOPBAR = new NOTopBarAction();
+    ITopBarAction NO_TOP_BAR_ACTION = new NOTopBarAction();
 }

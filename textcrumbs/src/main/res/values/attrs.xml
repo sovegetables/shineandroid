@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TextCrumbs">
+        <attr name="text_crumb_item_horizontal_margin" format="dimension"/>
+        <attr name="text_crumb_item_vertical_margin" format="dimension"/>
+        <attr name="text_crumb_item_gravity">
+            <enum name="normal" value="0"/>
+            <enum name="center" value="1"/>
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="CrossView">
+        <attr name="backgroundColor" format="reference|color"/>
+    </declare-styleable>
+
+    <color name="c_label_text_color">#888888</color>
+    <color name="c_label_background">#e0e0e0</color>
+    <color name="c_label_layout_close_btn_color">#a6a6a6</color>
+    <color name="c_label_layout_title_text_color">#888888</color>
+    <color name="c_text_crumb_back">#1a000000</color>
+    <dimen name="d_crumb_label_stroke">1dp</dimen>
+    <color name="c_filter_card_bg_color">#e2f4fc</color>
+    <color name="c_filter_card_title_text_color">#1f1f1f</color>
+    <color name="c_filter_card_skip_text_color">#888888</color>
+    <color name="c_filter_care_skip_tip_title_text_color">#888888</color>
+    <color name="c_crumb_item_default_text_color">#888888</color>
+    <color name="c_crumb_item_selected_text_color">#ffffff</color>
+    <color name="c_filter_card_item_selected_bg_color">#6cc6f0</color>
+    <color name="c_filter_card_no_result_text_color">#888888</color>
+
+</resources>

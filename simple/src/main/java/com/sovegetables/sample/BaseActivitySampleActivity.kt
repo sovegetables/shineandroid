@@ -5,6 +5,7 @@ import android.os.Handler
 import android.view.View
 import com.sovegetables.BaseActivity
 import com.sovegetables.kt.toast
+import com.sovegetables.titleBuilder
 import com.sovegetables.topnavbar.TopBar
 import com.sovegetables.topnavbar.TopBarItem
 

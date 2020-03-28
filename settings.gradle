@@ -2,3 +2,4 @@ include ':simple', ':gsonhelper', ':retrofithelper', ':topnavbar', ':absactivity
 rootProject.name='shineandroid'
 include ':logger'
 include ':permission'
+include ':textcrumbs'
