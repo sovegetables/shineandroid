@@ -5,7 +5,7 @@
 #### Dependencies
 ```gradle
     maven { url "https://jitpack.io"}
-    implementation "com.github.sovegetables:permission:0.1.3"
+    implementation "com.github.sovegetables.shineandroid:permission:0.1.3"
 ```
 #### Usage
 ```kotlin
