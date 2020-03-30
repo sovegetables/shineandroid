@@ -33,10 +33,12 @@
 
     <ImageView
         android:id="@+id/iv"
-        android:layout_width="80dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        app:layout_constraintWidth_percent="0.3"
+        tools:src="@drawable/loading_origin"
         android:scaleType="fitXY"
-        android:adjustViewBounds="false"
+        android:adjustViewBounds="true"
         app:layout_constraintTop_toBottomOf="@+id/btn_show_loading"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

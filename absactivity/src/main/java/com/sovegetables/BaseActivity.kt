@@ -55,31 +55,34 @@ abstract class BaseActivity : AppCompatActivity(), IEmptyController, ILoadingDia
         }
     }
 
-    private fun configSystemBar(systemBarConfig: SystemBarConfig) {
-        val builder = SystemBarHelper.Builder()
-        builder.enableImmersedNavigationBar(systemBarConfig.navigationBarImmersed)
-        builder.enableImmersedStatusBar(systemBarConfig.statusBarImmersed)
-        if (systemBarConfig.navigationBarColor != SystemBarConfig.NOT_SET) {
-            builder.navigationBarColor(systemBarConfig.navigationBarColor)
+    private fun configSystemBar(systemBarConfig: SystemBarConfig?) {
+        if(systemBarConfig != null){
+            val builder = SystemBarHelper.Builder()
+            builder.enableImmersedNavigationBar(systemBarConfig.navigationBarImmersed)
+            builder.enableImmersedStatusBar(systemBarConfig.statusBarImmersed)
+            if (systemBarConfig.navigationBarColor != SystemBarConfig.NOT_SET) {
+                builder.navigationBarColor(systemBarConfig.navigationBarColor)
+            }
+            if (systemBarConfig.statusBarColor != SystemBarConfig.NOT_SET) {
+                builder.statusBarColor(systemBarConfig.statusBarColor)
+            }
+            builder.statusBarFontStyle(if (systemBarConfig.statusBarFontStyle === SystemBarConfig.SystemBarFontStyle.LIGHT) SystemBarHelper.STATUS_BAR_LIGHT_FONT_STYLE else SystemBarHelper.STATUS_BAR_DARK_FONT_STYLE)
+            builder.navigationBarStyle(if (systemBarConfig.navigationBarStyle === SystemBarConfig.SystemBarFontStyle.LIGHT) SystemBarHelper.NAVIGATION_BAR_LIGHT_ICON_STYLE else SystemBarHelper.NAVIGATION_BAR_DARK_ICON_STYLE)
+            systemBarHelper = builder.into(this)
         }
-        if (systemBarConfig.statusBarColor != SystemBarConfig.NOT_SET) {
-            builder.statusBarColor(systemBarConfig.statusBarColor)
-        }
-        builder.statusBarFontStyle(if (systemBarConfig.statusBarFontStyle === SystemBarConfig.SystemBarFontStyle.LIGHT) SystemBarHelper.STATUS_BAR_LIGHT_FONT_STYLE else SystemBarHelper.STATUS_BAR_DARK_FONT_STYLE)
-        builder.navigationBarStyle(if (systemBarConfig.navigationBarStyle === SystemBarConfig.SystemBarFontStyle.LIGHT) SystemBarHelper.NAVIGATION_BAR_LIGHT_ICON_STYLE else SystemBarHelper.NAVIGATION_BAR_DARK_ICON_STYLE)
-        systemBarHelper = builder.into(this)
     }
 
-    open fun createSystemBarConfig(): SystemBarConfig {
+    open fun createSystemBarConfig(): SystemBarConfig? {
         return SystemBarConfig()
     }
 
-    final override fun setContentView(layoutResID: Int) {
+    @CallSuper
+    override fun setContentView(layoutResID: Int) {
         val view = LayoutInflater.from(this).inflate(layoutResID, null)
         setContentView(view)
     }
 
-    final override fun setContentView(view: View?) {
+    override fun setContentView(view: View?) {
         val realContentView = sDefaultContentViewDelegate!!.onCreateContentView(view!!)
         super.setContentView(realContentView)
         topBarAction = sDefaultContentViewDelegate!!.onCreateTopBarAction()
@@ -95,13 +98,6 @@ abstract class BaseActivity : AppCompatActivity(), IEmptyController, ILoadingDia
 
     open fun <T : IContentView?> getContentViewDelegate(): T? {
         return null
-    }
-
-    override fun setContentView(
-        view: View?,
-        params: ViewGroup.LayoutParams?
-    ) {
-        throw UnsupportedOperationException("Not support!")
     }
 
     override fun showEmpty(msg: String?, icon: Int, model: IEmptyController.Model?) {

@@ -35,7 +35,7 @@ class BaseActivitySampleActivity : BaseActivity() {
             }, 2000)
         }
 
-        Glide.with(iv).load(R.drawable.loading).into(iv)
+        Glide.with(iv).load(R.drawable.loading_origin).into(iv)
     }
 
     override fun getTopBar(): TopBar {
