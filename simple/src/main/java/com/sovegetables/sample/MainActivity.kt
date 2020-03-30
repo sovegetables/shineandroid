@@ -51,7 +51,7 @@ class MainActivity : BaseActivity() {
     data class MainItem(var title: String, var clazz: Class<out Activity>)
 
     override fun getTopBar(): TopBar {
-        return titleBuilder("Sample").left(TopBarItem.EMPTY).build(this)
+        return TopBar.NO_ACTION_BAR
     }
 
     override fun createSystemBarConfig(): SystemBarConfig {

@@ -109,6 +109,7 @@ public class ActionBarView extends ConstraintLayout implements ITopBarAction{
 
     @Override
     public final void setUpTopBar(TopBar topBar) {
+        setVisibility(topBar == TopBar.NO_ACTION_BAR? GONE: VISIBLE);
         mTopBar = topBar;
         TopBarItem left = topBar.left();
         setUpItem(mTvLeft, left);
