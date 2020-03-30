@@ -12,7 +12,7 @@ import cn.albert.autosystembar.SystemBarHelper
 import com.sovegetables.topnavbar.ITopBarAction
 import com.sovegetables.topnavbar.TopBar
 
-abstract class BaseActivity : AppCompatActivity(){
+abstract class BaseActivity : AppCompatActivity(), IEmptyController, ILoadingDialogController, ILoadingController{
 
     companion object{
         private var sDefaultContentViewDelegate: IContentView? = null
@@ -33,6 +33,9 @@ abstract class BaseActivity : AppCompatActivity(){
 
     protected lateinit var topBarAction: ITopBarAction
     protected lateinit var systemBarHelper: SystemBarHelper
+    protected lateinit var loadingDialogController: ILoadingDialogController
+    protected lateinit var loadingController: ILoadingController
+    protected lateinit var emptyController: IEmptyController
 
     @CallSuper
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,6 +46,13 @@ abstract class BaseActivity : AppCompatActivity(){
         }
         sDefaultContentViewDelegate!!.onCreate(savedInstanceState)
         super.onCreate(savedInstanceState)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if(loadingDialogController.isLoadingDialogShow()){
+            loadingDialogController.hideLoadingDialog()
+        }
     }
 
     private fun configSystemBar(systemBarConfig: SystemBarConfig) {
@@ -70,10 +80,13 @@ abstract class BaseActivity : AppCompatActivity(){
     }
 
     final override fun setContentView(view: View?) {
-        val realContentView = sDefaultContentViewDelegate!!.onCreateContentView(view)
+        val realContentView = sDefaultContentViewDelegate!!.onCreateContentView(view!!)
         super.setContentView(realContentView)
         topBarAction = sDefaultContentViewDelegate!!.onCreateTopBarAction()
         topBarAction.setUpTopBar(getTopBar())
+        loadingDialogController = sDefaultContentViewDelegate!!.getLoadingDialogController()
+        emptyController = sDefaultContentViewDelegate!!.getEmptyController()
+        loadingController = sDefaultContentViewDelegate!!.getLoadingController()
     }
 
     open fun getTopBar(): TopBar? {
@@ -91,4 +104,40 @@ abstract class BaseActivity : AppCompatActivity(){
         throw UnsupportedOperationException("Not support!")
     }
 
+    override fun showEmpty(msg: String?, icon: Int, model: IEmptyController.Model?) {
+        emptyController.showEmpty(msg, icon, model)
+    }
+
+    override fun hideEmpty() {
+        emptyController.hideEmpty()
+    }
+
+    override fun showLoadingDialog(
+        msg: String?,
+        icon: Int,
+        canceled: Boolean,
+        model: ILoadingDialogController.Model?
+    ) {
+        loadingDialogController.showLoadingDialog(msg, icon, canceled, model)
+    }
+
+    override fun hideLoadingDialog() {
+        loadingDialogController.hideLoadingDialog()
+    }
+
+    override fun isLoadingDialogShow(): Boolean {
+        return loadingDialogController.isLoadingDialogShow()
+    }
+
+    override fun showLoading() {
+        loadingController.showLoading()
+    }
+
+    override fun hideLoading() {
+        loadingController.hideLoading()
+    }
+
+    override fun isLoadingShow(): Boolean {
+        return loadingController.isLoadingShow()
+    }
 }

@@ -8,6 +8,7 @@ import com.sovegetables.kt.toast
 import com.sovegetables.titleBuilder
 import com.sovegetables.topnavbar.TopBar
 import com.sovegetables.topnavbar.TopBarItem
+import kotlinx.android.synthetic.main.activity_base_sample.*
 
 class BaseActivitySampleActivity : BaseActivity() {
 
@@ -20,6 +21,18 @@ class BaseActivitySampleActivity : BaseActivity() {
                 .visibility(View.VISIBLE)
                 .update()
         }, 4000)
+
+        btn_show_dialog_loading.setOnClickListener {
+            showLoadingDialog(canceled = true)
+        }
+
+        btn_show_loading.setOnClickListener {
+            showLoading()
+
+            Handler().postDelayed({
+                hideLoading()
+            }, 2000)
+        }
     }
 
     override fun getTopBar(): TopBar {

@@ -6,6 +6,10 @@ import com.sovegetables.topnavbar.ITopBarAction
 
 interface IContentView {
     fun onCreate(savedInstanceState: Bundle?)
-    fun onCreateContentView(view: View?): View
+    fun onCreateContentView(view: View): View
     fun onCreateTopBarAction(): ITopBarAction
+
+    fun getEmptyController(): IEmptyController
+    fun getLoadingController(): ILoadingController
+    fun getLoadingDialogController(): ILoadingDialogController
 }
