@@ -24,6 +24,7 @@ public abstract class TopBarItemUpdater {
     @ColorRes
     protected int textColorRes = INVALID;
     protected int visibility = INVALID;
+    protected boolean enable = true;
 
     public final TopBarItemUpdater icon(Drawable icon){
         this.icon = icon;
@@ -42,6 +43,11 @@ public abstract class TopBarItemUpdater {
 
     public final TopBarItemUpdater textColor(@ColorInt int textColor){
         this.textColor = textColor;
+        return this;
+    }
+
+    public final TopBarItemUpdater enable(boolean enable){
+        this.enable = enable;
         return this;
     }
 
@@ -99,6 +105,9 @@ public abstract class TopBarItemUpdater {
             if(visibility != INVALID){
                 textView.setVisibility(visibility == View.VISIBLE? View.VISIBLE: View.GONE);
             }
+
+            boolean enable = this.enable;
+            textView.setEnabled(enable);
         }
     }
 
