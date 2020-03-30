@@ -3,6 +3,7 @@ package com.sovegetables.sample
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
+import com.bumptech.glide.Glide
 import com.sovegetables.BaseActivity
 import com.sovegetables.kt.toast
 import com.sovegetables.titleBuilder
@@ -33,6 +34,8 @@ class BaseActivitySampleActivity : BaseActivity() {
                 hideLoading()
             }, 2000)
         }
+
+        Glide.with(iv).load(R.drawable.loading).into(iv)
     }
 
     override fun getTopBar(): TopBar {
