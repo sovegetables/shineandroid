@@ -34,8 +34,8 @@ public interface TopBarItem {
 
     class Builder{
 
-        @DrawableRes
-        private int icon;
+        private static final int INVALID = -1;
+        private int icon = INVALID;
         private CharSequence text;
         private View.OnClickListener listener;
         @ColorInt
@@ -74,7 +74,11 @@ public interface TopBarItem {
                 throw new IllegalArgumentException("duplicate id !");
             }
             ids.add(id);
-            return new TopBarItemImpl(ContextCompat.getDrawable(context, icon), text, listener, textColor, id, visibility);
+            Drawable drawable = null;
+            if(icon > 0){
+                drawable = ContextCompat.getDrawable(context, icon);
+            }
+            return new TopBarItemImpl(drawable, text, listener, textColor, id, visibility);
         }
     }
 }
