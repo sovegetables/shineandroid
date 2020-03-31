@@ -25,7 +25,6 @@ public class ActionBarView extends ConstraintLayout implements ITopBarAction{
     TextView mTvTitle;
     private final List<TextView> mActionViews = new ArrayList<>();
     private int mHeight;
-    private static final float ELEVATION = 6;
     private TopBarItemUpdater mLeftItemUpdater;
     private TopBarUpdater mTopBarUpdater;
     private TopBar mTopBar;
@@ -63,11 +62,6 @@ public class ActionBarView extends ConstraintLayout implements ITopBarAction{
         mActionViews.add(tvAction3);
         mTvTitle = findViewById(R.id.tv_action_bar_title);
         mHeight = context.getResources().getDimensionPixelSize(R.dimen.d_action_bar_height);
-        float elevation = ViewCompat.getElevation(this);
-        if(elevation == 0){
-            int defElevation = (int) (getResources().getDisplayMetrics().density * ELEVATION);
-            ViewCompat.setElevation(this, defElevation);
-        }
     }
 
     @Override
