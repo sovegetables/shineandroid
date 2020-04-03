@@ -35,7 +35,7 @@ dependencies {
     api project(':topnavbar')
 //    implementation 'com.github.sovegetables.shineandroid:topnavbar:0.1.3'
 
-    api 'com.github.sovegetables:systembarhelper:0.1.2'
+    api 'com.github.sovegetables:systembarhelper:0.1.6'
     api 'com.qmuiteam:qmui:1.4.0'
 
     testImplementation 'junit:junit:4.12'

@@ -3,7 +3,6 @@ package com.sovegetables
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.annotation.CallSuper
 import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
@@ -60,20 +59,30 @@ abstract class BaseActivity : AppCompatActivity(), IEmptyController, ILoadingDia
             val builder = SystemBarHelper.Builder()
             builder.enableImmersedNavigationBar(systemBarConfig.navigationBarImmersed)
             builder.enableImmersedStatusBar(systemBarConfig.statusBarImmersed)
-            if (systemBarConfig.navigationBarColor != SystemBarConfig.NOT_SET) {
-                builder.navigationBarColor(systemBarConfig.navigationBarColor)
-            }
-            if (systemBarConfig.statusBarColor != SystemBarConfig.NOT_SET) {
+            if(systemBarConfig.isStatusBarColorSet){
                 builder.statusBarColor(systemBarConfig.statusBarColor)
             }
-            builder.statusBarFontStyle(if (systemBarConfig.statusBarFontStyle === SystemBarConfig.SystemBarFontStyle.LIGHT) SystemBarHelper.STATUS_BAR_LIGHT_FONT_STYLE else SystemBarHelper.STATUS_BAR_DARK_FONT_STYLE)
-            builder.navigationBarStyle(if (systemBarConfig.navigationBarStyle === SystemBarConfig.SystemBarFontStyle.LIGHT) SystemBarHelper.NAVIGATION_BAR_LIGHT_ICON_STYLE else SystemBarHelper.NAVIGATION_BAR_DARK_ICON_STYLE)
+            if(systemBarConfig.isNavigationBarColorSet){
+                builder.navigationBarColor(systemBarConfig.navigationBarColor)
+            }
+            if(systemBarConfig.statusBarColorRes > 0){
+                builder.statusBarColorRes(systemBarConfig.statusBarColorRes)
+            }
+            if(systemBarConfig.navigationBarColorRes > 0){
+                builder.navigationBarColorRes(systemBarConfig.navigationBarColorRes)
+            }
+            if(systemBarConfig.statusBarFontStyle != SystemBarConfig.SystemBarFontStyle.NOT_SET){
+                builder.statusBarFontStyle(if (systemBarConfig.statusBarFontStyle === SystemBarConfig.SystemBarFontStyle.LIGHT) SystemBarHelper.STATUS_BAR_LIGHT_FONT_STYLE else SystemBarHelper.STATUS_BAR_DARK_FONT_STYLE)
+            }
+            if(systemBarConfig.navigationBarStyle != SystemBarConfig.SystemBarFontStyle.NOT_SET){
+                builder.navigationBarStyle(if (systemBarConfig.navigationBarStyle === SystemBarConfig.SystemBarFontStyle.LIGHT) SystemBarHelper.NAVIGATION_BAR_LIGHT_ICON_STYLE else SystemBarHelper.NAVIGATION_BAR_DARK_ICON_STYLE)
+            }
             systemBarHelper = builder.into(this)
         }
     }
 
     open fun createSystemBarConfig(): SystemBarConfig? {
-        return SystemBarConfig()
+        return null
     }
 
     @CallSuper

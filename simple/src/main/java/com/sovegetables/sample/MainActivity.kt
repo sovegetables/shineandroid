@@ -10,9 +10,7 @@ import com.sovegetables.BaseActivity
 import com.sovegetables.SystemBarConfig
 import com.sovegetables.adapter.AbsListAdapter
 import com.sovegetables.adapter.CommonViewHolder
-import com.sovegetables.titleBuilder
 import com.sovegetables.topnavbar.TopBar
-import com.sovegetables.topnavbar.TopBarItem
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
