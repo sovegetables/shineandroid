@@ -1,6 +1,7 @@
 package com.sovegetables.topnavbar;
 
 import androidx.annotation.ColorInt;
+import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
 
 import java.util.List;
@@ -12,12 +13,13 @@ class TopBarImpl implements TopBar{
     private final CharSequence title;
 
     @ColorInt
-    private final int titleColor;
+    private int titleColor;
 
     @ColorInt
-    private final int topBarColor;
+    private int topBarColor;
 
-    TopBarImpl(TopBarItem left, @NonNull List<TopBarItem> rights, CharSequence title, @ColorInt int titleColor, @ColorInt int topBarColor) {
+
+    TopBarImpl(TopBarItem left, List<TopBarItem> rights, CharSequence title, int titleColor, int topBarColor) {
         this.left = left;
         this.rights = rights;
         this.title = title;
@@ -51,4 +53,5 @@ class TopBarImpl implements TopBar{
     public int topBarColor() {
         return topBarColor;
     }
+
 }

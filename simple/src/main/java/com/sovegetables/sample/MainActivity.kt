@@ -53,6 +53,8 @@ class MainActivity : BaseActivity() {
     }
 
     override fun createSystemBarConfig(): SystemBarConfig {
-        return SystemBarConfig(statusBarColor = ContextCompat.getColor(this, android.R.color.holo_blue_light))
+        return SystemBarConfig.Builder()
+            .setStatusBarColorRes(android.R.color.holo_blue_light)
+            .build()
     }
 }

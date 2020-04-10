@@ -6,8 +6,12 @@ import android.graphics.drawable.Drawable;
 import android.view.View;
 
 import androidx.annotation.ColorInt;
+import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
+import androidx.annotation.VisibleForTesting;
 import androidx.core.content.ContextCompat;
+
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 
@@ -36,13 +40,14 @@ public interface TopBarItem {
 
         private static final int INVALID = -1;
         private int icon = INVALID;
+        private Drawable iconDrawable;
         private CharSequence text;
         private View.OnClickListener listener;
-        @ColorInt
-        private int textColor;
-
+        @ColorInt private int textColor;
+        private boolean isTextColorSet;
         private final ArrayList<Integer> ids = new ArrayList<>(10);
         private Visibility visibility = Visibility.VISIBLE;
+        @ColorRes private int textColorRes = INVALID;
 
         public Builder icon(@DrawableRes int icon){
             this.icon = icon;
@@ -60,7 +65,13 @@ public interface TopBarItem {
         }
 
         public Builder textColor(@ColorInt int textColor){
+            isTextColorSet = true;
             this.textColor = textColor;
+            return this;
+        }
+
+        public Builder textColorRes(@ColorRes int textColorRes){
+            this.textColorRes = textColorRes;
             return this;
         }
 
@@ -74,11 +85,26 @@ public interface TopBarItem {
                 throw new IllegalArgumentException("duplicate id !");
             }
             ids.add(id);
-            Drawable drawable = null;
-            if(icon > 0){
-                drawable = ContextCompat.getDrawable(context, icon);
+            return new TopBarItemImpl(getDrawable(context), text, listener, getColor(context), id, visibility);
+        }
+
+        @VisibleForTesting
+        private int getColor(Context context) {
+            if(isTextColorSet){
+                return textColor;
             }
-            return new TopBarItemImpl(drawable, text, listener, textColor, id, visibility);
+            if(textColorRes != INVALID){
+                return ContextCompat.getColor(context, textColorRes);
+            }
+            return Color.WHITE;
+        }
+
+        @Nullable
+        private Drawable getDrawable(Context context) {
+            if(icon > 0){
+                iconDrawable = ContextCompat.getDrawable(context, icon);
+            }
+            return iconDrawable;
         }
     }
 }

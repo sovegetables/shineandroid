@@ -16,7 +16,7 @@ internal class PermissionFragment : Fragment(){
             val manager = activity.supportFragmentManager
             if (manager.findFragmentByTag(FRAGMENT_TAG) == null) {
                 manager.beginTransaction().add(PermissionFragment(), FRAGMENT_TAG)
-                    .commitNow()
+                    .commitNowAllowingStateLoss()
             }
         }
 
@@ -24,7 +24,7 @@ internal class PermissionFragment : Fragment(){
             val manager = fragment.childFragmentManager
             if(manager.findFragmentByTag(FRAGMENT_TAG) == null){
                 manager.beginTransaction().add(PermissionFragment(), FRAGMENT_TAG)
-                    .commitNow()
+                    .commitNowAllowingStateLoss()
             }
         }
 

@@ -38,13 +38,15 @@ public interface TopBar {
         private Context mContext;
         TopBarUpdater updater;
 
-        private static final int INVALID = -1;
+        static final int INVALID = -1;
         @ColorInt
         private int mTitleColor = INVALID;
+        private boolean mIsTitleColorSet;
         @ColorRes
         private int mTopBarColorRes = INVALID;
         @ColorInt
         private int mTopBarColor = INVALID;
+        private boolean mIsTopBarColorSet;
         @ColorRes
         private int mTitleColorRes = INVALID;
 
@@ -85,6 +87,7 @@ public interface TopBar {
         }
 
         public Builder titleColor(@ColorInt int titleColor){
+            mIsTitleColorSet = true;
             mTitleColor = titleColor;
             return this;
         }
@@ -95,6 +98,7 @@ public interface TopBar {
         }
 
         public Builder topBarColor(@ColorInt int topBarColor){
+            mIsTopBarColorSet = true;
             mTopBarColor = topBarColor;
             return this;
         }
@@ -110,8 +114,8 @@ public interface TopBar {
         }
 
         private int getTitleColor() {
-            if(mTitleColor != INVALID){
-                return mTopBarColor;
+            if(mIsTitleColorSet){
+                return mTitleColor;
             }
             if(mTitleColorRes != INVALID){
                 return ContextCompat.getColor(mContext, mTitleColorRes);
@@ -120,7 +124,7 @@ public interface TopBar {
         }
 
         private int getTopBarColor() {
-            if(mTopBarColor != INVALID){
+            if(mIsTopBarColorSet){
                 return mTopBarColor;
             }
             if(mTopBarColorRes != INVALID){
