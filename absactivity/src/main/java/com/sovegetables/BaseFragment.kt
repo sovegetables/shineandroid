@@ -50,15 +50,16 @@ abstract class BaseFragment : Fragment(), IEmptyController, ILoadingDialogContro
             sDefaultContentViewDelegate = DefaultIContentView()
         }
         val parent = view.parent
+        val layoutParams = view.layoutParams
         if (parent is ViewGroup) {
-            parent.removeAllViews()
+            parent.removeView(view)
             realContentView = sDefaultContentViewDelegate!!.onCreateContentView(view)
             topBarAction = sDefaultContentViewDelegate!!.onCreateTopBarAction()
             topBarAction.setUpTopBar(getTopBar())
             loadingDialogController = sDefaultContentViewDelegate!!.getLoadingDialogController()
             emptyController = sDefaultContentViewDelegate!!.getEmptyController()
             loadingController = sDefaultContentViewDelegate!!.getLoadingController()
-            parent.addView(realContentView)
+            parent.addView(realContentView, layoutParams)
         }
     }
 
