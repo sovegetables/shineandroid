@@ -30,10 +30,16 @@ public interface TopBar {
 
     TopBar NO_ACTION_BAR = new TopBarImpl(TopBarItem.EMPTY, new ArrayList<TopBarItem>(), null, Color.BLACK, Color.WHITE);
 
+    String DUPLICATE_ID = "duplicate item id !";
+
+
     class Builder {
 
+        static final String RIGHT_ITEM_COUNT_CAN_T_EXCEED_3 = "right item count can't exceed 3!";
         private TopBarItem mLeft = TopBarItem.EMPTY;
         private final List<TopBarItem> mRightItems = new ArrayList<>(3);
+        private final ArrayList<Integer> itemIds = new ArrayList<>(10);
+
         private CharSequence mTitle;
         private Context mContext;
         TopBarUpdater updater;
@@ -49,6 +55,7 @@ public interface TopBar {
         private boolean mIsTopBarColorSet;
         @ColorRes
         private int mTitleColorRes = INVALID;
+        private int mTitleRes = INVALID;
 
         public Builder(){
         }
@@ -59,20 +66,20 @@ public interface TopBar {
         }
 
         public Builder right(TopBarItem right){
-            checkMaxCount(mRightItems);
             mRightItems.add(right);
+            checkMaxCount(mRightItems);
             return this;
         }
 
         private void checkMaxCount(List<TopBarItem> rightItems) {
             if(rightItems.size() > ActionBarView.ACTION_VIEW_MAX_COUNT){
-                throw new IllegalArgumentException("right item count can't exceed 3!");
+                throw new IllegalArgumentException(RIGHT_ITEM_COUNT_CAN_T_EXCEED_3);
             }
         }
 
         public Builder rights(@NonNull List<TopBarItem> rights){
-            checkMaxCount(mRightItems);
             mRightItems.addAll(rights);
+            checkMaxCount(mRightItems);
             return this;
         }
 
@@ -82,7 +89,7 @@ public interface TopBar {
         }
 
         public Builder title(@StringRes int titleRes){
-            mTitle = mContext.getResources().getString(titleRes);
+            mTitleRes = titleRes;
             return this;
         }
 
@@ -110,7 +117,25 @@ public interface TopBar {
 
         public TopBar build(Context context){
             mContext = context.getApplicationContext();
-            return new TopBarImpl(mLeft, mRightItems, mTitle, getTitleColor() , getTopBarColor()) ;
+            List<TopBarItem> rightItems = this.mRightItems;
+            for (TopBarItem i: rightItems){
+                if(!itemIds.contains(i.id())){
+                    itemIds.add(i.id());
+                }else {
+                    throw new IllegalArgumentException(DUPLICATE_ID);
+                }
+            }
+            return new TopBarImpl(mLeft, rightItems, getTitle(), getTitleColor() , getTopBarColor()) ;
+        }
+
+        private CharSequence getTitle(){
+            if(mTitle != null){
+                return mTitle;
+            }
+            if(mTitleRes != INVALID){
+                return mContext.getString(mTitleRes);
+            }
+            return null;
         }
 
         private int getTitleColor() {

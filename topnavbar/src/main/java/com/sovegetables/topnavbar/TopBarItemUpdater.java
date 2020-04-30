@@ -12,51 +12,91 @@ import androidx.core.content.ContextCompat;
 
 public abstract class TopBarItemUpdater {
 
-    protected static final int INVALID = -1;
-    protected static final String INVALID_TITLE = "-1";
+    private UpdaterParam updaterParam;
+    static final int INVALID = -1;
+    static final String INVALID_TITLE = "-1TopBarItemUpdater";
 
-    protected Drawable icon;
-    @DrawableRes
-    protected int iconRes = INVALID;
-    protected CharSequence text = INVALID_TITLE;
-    @ColorInt
-    protected int textColor = INVALID;
-    @ColorRes
-    protected int textColorRes = INVALID;
-    protected int visibility = INVALID;
-    protected boolean enable = true;
+    public void reset() {
+        UpdaterParam updaterParam = getUpdaterParam();
+        updaterParam.icon = null;
+        updaterParam.iconRes = INVALID;
+        updaterParam.text = INVALID_TITLE;
+        updaterParam.textColor = 0;
+        updaterParam.isTextColorSet = false;
+        updaterParam.textColorRes = INVALID;
+        updaterParam.visibility = INVALID;
+        updaterParam.enable = false;
+    }
+
+    static class UpdaterParam{
+        public Drawable icon;
+        @DrawableRes
+        public int iconRes = INVALID;
+        public CharSequence text = INVALID_TITLE;
+        @ColorInt
+        public int textColor;
+        public boolean isTextColorSet;
+        @ColorRes
+        public int textColorRes = INVALID;
+        public int visibility = INVALID;
+        public boolean enable = true;
+    }
+
+    private UpdaterParam getUpdaterParam() {
+        if(updaterParam == null){
+            updaterParam = new UpdaterParam();
+        }
+        return updaterParam;
+    }
 
     public final TopBarItemUpdater icon(Drawable icon){
-        this.icon = icon;
+        UpdaterParam updaterParam = getUpdaterParam();
+        updaterParam.icon = icon;
+        return this;
+    }
+
+    public final TopBarItemUpdater iconRes(int iconRes){
+        UpdaterParam updaterParam = getUpdaterParam();
+        updaterParam.iconRes = iconRes;
         return this;
     }
 
     public final TopBarItemUpdater text(CharSequence text){
-        this.text = text;
+        UpdaterParam updaterParam = getUpdaterParam();
+        updaterParam.text = text;
         return this;
     }
 
     public final TopBarItemUpdater textColorRes(@ColorRes int textColorRes){
-        this.textColorRes = textColorRes;
+        UpdaterParam updaterParam = getUpdaterParam();
+        updaterParam.textColorRes = textColorRes;
         return this;
     }
 
     public final TopBarItemUpdater textColor(@ColorInt int textColor){
-        this.textColor = textColor;
+        UpdaterParam updaterParam = getUpdaterParam();
+        updaterParam.isTextColorSet = true;
+        updaterParam.textColor = textColor;
         return this;
     }
 
     public final TopBarItemUpdater enable(boolean enable){
-        this.enable = enable;
+        UpdaterParam updaterParam = getUpdaterParam();
+        updaterParam.enable = enable;
         return this;
     }
 
     public final TopBarItemUpdater visibility(int visibility){
-        this.visibility = visibility;
+        UpdaterParam updaterParam = getUpdaterParam();
+        updaterParam.visibility = visibility;
         return this;
     }
 
-    public abstract void update();
+    abstract void update(UpdaterParam updaterParam);
+
+    public final void update(){
+        update(getUpdaterParam());
+    }
 
     static class TopBarItemUpdaterImpl extends TopBarItemUpdater{
 
@@ -67,9 +107,9 @@ public abstract class TopBarItemUpdater {
         }
 
         @Override
-        public void update(){
+        public void update(UpdaterParam updaterParam){
             Context context = textView.getContext();
-            final int visibility = this.visibility;
+            final int visibility = updaterParam.visibility;
             if(visibility != INVALID){
                 if(visibility == View.VISIBLE){
                     textView.setVisibility(View.VISIBLE);
@@ -77,36 +117,28 @@ public abstract class TopBarItemUpdater {
                     textView.setVisibility(View.GONE);
                 }
             }
-            final CharSequence text = this.text;
+            final CharSequence text = updaterParam.text;
             if(!INVALID_TITLE.equalsIgnoreCase(text.toString())){
                 textView.setText(text);
             }
-
-            final int textColor = this.textColor;
-            if(textColor != INVALID){
+            final int textColor = updaterParam.textColor;
+            if(updaterParam.isTextColorSet){
                 textView.setTextColor(textColor);
+            }else {
+                final int textColorRes = updaterParam.textColorRes;
+                if(textColorRes != INVALID){
+                    textView.setTextColor(ContextCompat.getColor(context, textColorRes));
+                }
             }
-
-            final int textColorRes = this.textColorRes;
-            if(textColorRes != INVALID){
-                textView.setTextColor(ContextCompat.getColor(context, textColorRes));
-            }
-
-            Drawable icon = this.icon;
+            Drawable icon = updaterParam.icon;
             if(icon != null){
                 ActionBarView.setItemIcon(textView, icon);
             }
-
-            int iconRes = this.iconRes;
+            int iconRes = updaterParam.iconRes;
             if(iconRes != INVALID){
                 ActionBarView.setItemIcon(textView, ContextCompat.getDrawable(context, iconRes));
             }
-
-            if(visibility != INVALID){
-                textView.setVisibility(visibility == View.VISIBLE? View.VISIBLE: View.GONE);
-            }
-
-            boolean enable = this.enable;
+            boolean enable = updaterParam.enable;
             textView.setEnabled(enable);
         }
     }

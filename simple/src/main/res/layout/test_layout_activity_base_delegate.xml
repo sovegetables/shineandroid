@@ -12,7 +12,6 @@
         android:id="@+id/ll_delegate_action_bar_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
         android:orientation="vertical"
         android:elevation="4dp"
         >

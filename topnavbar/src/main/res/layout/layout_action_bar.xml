@@ -18,7 +18,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:drawablePadding="5dp"
         android:layout_alignParentTop="true"
-        android:background="?attr/selectableItemBackgroundBorderless"
+        android:background="?selectableItemBackgroundBorderless"
         android:gravity="center"
         android:maxWidth="120dp"
         android:paddingLeft="15dp"

@@ -1,6 +1,8 @@
 package com.sovegetables.sample
 
 import android.os.Bundle
+import com.bumptech.glide.Glide
+import com.bumptech.glide.GlideBuilder
 import com.sovegetables.BaseActivity
 import com.sovegetables.kt.toast
 import com.sovegetables.textcrumbs.TextCrumbs

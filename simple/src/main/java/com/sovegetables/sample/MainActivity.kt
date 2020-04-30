@@ -38,6 +38,7 @@ class MainActivity : BaseActivity() {
         list.add(MainItem("BaseActivity Sample", BaseActivitySampleActivity::class.java))
         list.add(MainItem("权限Sample", PermissionSampleMainActivity::class.java))
         list.add(MainItem("TextCrumb Sample", TextCrumbsActivity::class.java))
+        list.add(MainItem("FragmentSampleActivity", FragmentSampleActivity::class.java))
         adapter.items = list
         rv_sample.adapter = adapter
 

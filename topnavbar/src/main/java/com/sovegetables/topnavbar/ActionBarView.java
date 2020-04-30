@@ -9,9 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.view.ViewCompat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,7 @@ public class ActionBarView extends ConstraintLayout implements ITopBarAction{
     private static final String TAG = "ActionBarView";
     static final int ACTION_VIEW_MAX_COUNT = 3;
     private TextView mTvLeft;
-    TextView mTvTitle;
+    private TextView mTvTitle;
     private final List<TextView> mActionViews = new ArrayList<>();
     private int mHeight;
     private TopBarItemUpdater mLeftItemUpdater;
@@ -101,6 +102,14 @@ public class ActionBarView extends ConstraintLayout implements ITopBarAction{
         }
     }
 
+    void setTitle(CharSequence title){
+        mTvTitle.setText(title);
+    }
+
+    void setTitleTextColor(@ColorInt int titleColor) {
+        mTvTitle.setTextColor(titleColor);
+    }
+
     @Override
     public final void setUpTopBar(TopBar topBar) {
         setVisibility(topBar == TopBar.NO_ACTION_BAR? GONE: VISIBLE);
@@ -119,6 +128,7 @@ public class ActionBarView extends ConstraintLayout implements ITopBarAction{
         if(mLeftItemUpdater == null){
             mLeftItemUpdater = new TopBarItemUpdater.TopBarItemUpdaterImpl(mTvLeft);
         }
+        mLeftItemUpdater.reset();
         return mLeftItemUpdater;
     }
 
@@ -142,6 +152,7 @@ public class ActionBarView extends ConstraintLayout implements ITopBarAction{
         if(mTopBarUpdater == null){
             mTopBarUpdater = new TopBarUpdater.TopBarUpdaterImpl(this);
         }
+        mTopBarUpdater.reset();
         return mTopBarUpdater;
     }
 
@@ -178,5 +189,29 @@ public class ActionBarView extends ConstraintLayout implements ITopBarAction{
 
     private TextView getTextView(int i, int len) {
         return mActionViews.get(i + ACTION_VIEW_MAX_COUNT - len);
+    }
+
+
+    @VisibleForTesting
+    TextView getTitleView() {
+        return mTvTitle;
+    }
+
+    @VisibleForTesting
+    TextView getLeftActionView() {
+        return mTvLeft;
+    }
+
+    @VisibleForTesting
+    TextView findRightActionViewById(int id) {
+        List<TopBarItem> rights = mTopBar.rights();
+        TopBarItem topBarItem;
+        for (int i = 0,len = rights.size(); i < len; i++){
+            topBarItem = rights.get(i);
+            if(topBarItem.id() == id){
+                return getTextView(i, len);
+            }
+        }
+        return null;
     }
 }

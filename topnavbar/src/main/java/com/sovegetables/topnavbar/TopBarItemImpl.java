@@ -17,11 +17,6 @@ class TopBarItemImpl implements TopBarItem{
     private final Visibility visibility;
 
     TopBarItemImpl(Drawable icon, CharSequence text,
-                   View.OnClickListener listener, int textColor, int id){
-        this(icon, text, listener, textColor, id, Visibility.VISIBLE);
-    }
-
-    TopBarItemImpl(Drawable icon, CharSequence text,
                    View.OnClickListener listener, int textColor, int id, Visibility visibility) {
         this.icon = icon;
         this.text = text;

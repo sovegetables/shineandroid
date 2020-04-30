@@ -3,7 +3,6 @@
     package="com.sovegetables.listactivity">
 
     <application>
-        <activity android:name=".ListActivity"></activity>
     </application>
 
 </manifest>

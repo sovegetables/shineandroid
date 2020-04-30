@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.annotation.CallSuper
 import androidx.annotation.DrawableRes
+import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import cn.albert.autosystembar.SystemBarHelper
@@ -41,7 +42,7 @@ abstract class BaseActivity : AppCompatActivity(), IEmptyController, ILoadingDia
         configSystemBar(createSystemBarConfig())
         sDefaultContentViewDelegate = getContentViewDelegate<IContentView>()
         if (sDefaultContentViewDelegate == null) {
-            sDefaultContentViewDelegate = FragmentContentView()
+            sDefaultContentViewDelegate = DefaultIContentView()
         }
         sDefaultContentViewDelegate!!.onCreate(savedInstanceState)
         super.onCreate(savedInstanceState)
@@ -107,6 +108,14 @@ abstract class BaseActivity : AppCompatActivity(), IEmptyController, ILoadingDia
 
     open fun <T : IContentView?> getContentViewDelegate(): T? {
         return null
+    }
+
+    open fun addViewBelowTopBar(view: View) {
+        sDefaultContentViewDelegate!!.addViewBelowTopBar(view)
+    }
+
+    open fun addViewBelowTopBar(@LayoutRes layoutRes: Int) {
+        sDefaultContentViewDelegate!!.addViewBelowTopBar(layoutRes)
     }
 
     override fun showEmpty(msg: String?, icon: Int, model: IEmptyController.Model?) {

@@ -9,7 +9,7 @@ class NOTopBarAction implements ITopBarAction{
     public TopBarItemUpdater leftItemUpdater() {
         return new TopBarItemUpdater() {
             @Override
-            public void update() {
+            void update(UpdaterParam updaterParam) {
             }
         };
     }
@@ -17,8 +17,9 @@ class NOTopBarAction implements ITopBarAction{
     @Override
     public TopBarItemUpdater findRightItemUpdaterById(int id) {
         return new TopBarItemUpdater() {
+
             @Override
-            public void update() {
+            void update(UpdaterParam updaterParam) {
             }
         };
     }
@@ -27,7 +28,7 @@ class NOTopBarAction implements ITopBarAction{
     public TopBarUpdater getTopBarUpdater() {
         return new TopBarUpdater() {
             @Override
-            public void update() {
+            public void update(TopBarUpdater.Params params) {
             }
         };
     }

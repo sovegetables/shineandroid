@@ -52,13 +52,19 @@ class FragmentContentView: IContentView {
         //不使用fragmentManager, 因为commit的fragment不是马上走onCreateView方法的
         interFragment = InterFragment()
         interFragment!!.setInterView(view)
-        val createView = interFragment!!.onCreateView(layoutInflater, rootView as ViewGroup, savedInstanceState)
-        rootView.addView(createView)
+        interFragment!!.onViewCreated(view, savedInstanceState)
+        (rootView as ViewGroup).addView(interFragment!!.view)
         return rootView
     }
 
     override fun onCreateTopBarAction(): ITopBarAction {
         return interFragment?.topBarAction()?: ITopBarAction.NO_TOP_BAR_ACTION
+    }
+
+    override fun addViewBelowTopBar(view: View) {
+    }
+
+    override fun addViewBelowTopBar(layoutRes: Int) {
     }
 
     override fun getEmptyController(): IEmptyController {

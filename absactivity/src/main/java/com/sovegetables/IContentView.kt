@@ -8,7 +8,8 @@ interface IContentView {
     fun onCreate(savedInstanceState: Bundle?)
     fun onCreateContentView(view: View): View
     fun onCreateTopBarAction(): ITopBarAction
-
+    fun addViewBelowTopBar(view: View)
+    fun addViewBelowTopBar(layoutRes: Int)
     fun getEmptyController(): IEmptyController
     fun getLoadingController(): ILoadingController
     fun getLoadingDialogController(): ILoadingDialogController

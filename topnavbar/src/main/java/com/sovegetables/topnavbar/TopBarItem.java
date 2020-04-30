@@ -45,7 +45,6 @@ public interface TopBarItem {
         private View.OnClickListener listener;
         @ColorInt private int textColor;
         private boolean isTextColorSet;
-        private final ArrayList<Integer> ids = new ArrayList<>(10);
         private Visibility visibility = Visibility.VISIBLE;
         @ColorRes private int textColorRes = INVALID;
 
@@ -81,10 +80,6 @@ public interface TopBarItem {
         }
 
         public TopBarItem build(final Context context, final int id){
-            if(ids.contains(id)){
-                throw new IllegalArgumentException("duplicate id !");
-            }
-            ids.add(id);
             return new TopBarItemImpl(getDrawable(context), text, listener, getColor(context), id, visibility);
         }
 
