@@ -16,6 +16,7 @@ class QUMILoadingController(private var context: Context) : ILoadingDialogContro
         if (loadingDialog == null) {
             loadingDialog = QMUITipDialog.Builder(context)
                 .setIconType(QMUITipDialog.Builder.ICON_TYPE_LOADING)
+                .setTipWord(msg)
                 .create()
         }
         loadingDialog!!.setCancelable(canceled)

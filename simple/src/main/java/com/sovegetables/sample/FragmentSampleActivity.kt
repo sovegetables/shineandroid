@@ -139,7 +139,7 @@ class FragmentSampleActivity : AppCompatActivity() {
         }
 
 
-        override fun onCreateView(
+        override fun onBaseCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?

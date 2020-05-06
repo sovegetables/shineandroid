@@ -1,14 +1,11 @@
 package com.sovegetables
 
-import android.content.Context
 import android.os.Bundle
-import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.CallSuper
 import androidx.annotation.LayoutRes
-import androidx.core.view.LayoutInflaterCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import com.sovegetables.topnavbar.ITopBarAction
@@ -25,45 +22,36 @@ abstract class BaseFragment : Fragment(), IEmptyController, ILoadingDialogContro
         }
     }
 
-    protected lateinit var topBarAction: ITopBarAction
-    protected lateinit var loadingDialogController: ILoadingDialogController
-    protected lateinit var loadingController: ILoadingController
-    protected lateinit var emptyController: IEmptyController
+    protected var topBarAction: ITopBarAction? = null
+    protected var loadingDialogController: ILoadingDialogController? = null
+    protected var loadingController: ILoadingController? = null
+    protected var emptyController: IEmptyController? = null
 
     private var realContentView: View? = null
 
-    override fun onCreateView(
+    final override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
-        return onBaseCreateView(inflater, container, savedInstanceState)
-    }
-
-    @CallSuper
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        replaceContentView(view)
-    }
-
-    private fun replaceContentView(view: View) {
-        sDefaultContentViewDelegate = getContentViewDelegate()
-        if (sDefaultContentViewDelegate == null) {
-            sDefaultContentViewDelegate = DefaultIContentView()
-        }
-        val parent = view.parent
-        val layoutParams = view.layoutParams
-        if (parent is ViewGroup) {
-            parent.removeView(view)
+        val view = onBaseCreateView(inflater, container, savedInstanceState)
+        if(view != null){
+            sDefaultContentViewDelegate = getContentViewDelegate()
+            if (sDefaultContentViewDelegate == null) {
+                sDefaultContentViewDelegate = DefaultIContentView()
+            }
+//        val parent = view.parent
+//        val layoutParams = view.layoutParams
+//        if (parent is ViewGroup) {
+//            parent.removeView(view)
             realContentView = sDefaultContentViewDelegate!!.onCreateContentView(view)
             topBarAction = sDefaultContentViewDelegate!!.onCreateTopBarAction()
-            topBarAction.setUpTopBar(getTopBar())
+            topBarAction!!.setUpTopBar(getTopBar())
             loadingDialogController = sDefaultContentViewDelegate!!.getLoadingDialogController()
             emptyController = sDefaultContentViewDelegate!!.getEmptyController()
             loadingController = sDefaultContentViewDelegate!!.getLoadingController()
-            parent.addView(realContentView, layoutParams)
+//            parent.addView(realContentView, layoutParams)
+//        }
         }
-    }
-
-    override fun getView(): View? {
         return realContentView
     }
 
@@ -77,13 +65,13 @@ abstract class BaseFragment : Fragment(), IEmptyController, ILoadingDialogContro
 
     open fun addViewBelowTopBar(view: View) {
         if(lifecycle.currentState.isAtLeast(Lifecycle.State.INITIALIZED)){
-            sDefaultContentViewDelegate!!.addViewBelowTopBar(view)
+            sDefaultContentViewDelegate?.addViewBelowTopBar(view)
         }
     }
 
     open fun addViewBelowTopBar(@LayoutRes layoutRes: Int) {
         if(lifecycle.currentState.isAtLeast(Lifecycle.State.INITIALIZED)){
-            sDefaultContentViewDelegate!!.addViewBelowTopBar(layoutRes)
+            sDefaultContentViewDelegate?.addViewBelowTopBar(layoutRes)
         }
     }
 
@@ -91,7 +79,7 @@ abstract class BaseFragment : Fragment(), IEmptyController, ILoadingDialogContro
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         return inflater.inflate(layoutId(), container, false)
     }
 
@@ -100,11 +88,11 @@ abstract class BaseFragment : Fragment(), IEmptyController, ILoadingDialogContro
     }
 
     override fun showEmpty(msg: String?, icon: Int, model: IEmptyController.Model?) {
-        emptyController.showEmpty(msg, icon, model)
+        emptyController?.showEmpty(msg, icon, model)
     }
 
     override fun hideEmpty() {
-        emptyController.hideEmpty()
+        emptyController?.hideEmpty()
     }
 
     override fun showLoadingDialog(
@@ -113,26 +101,26 @@ abstract class BaseFragment : Fragment(), IEmptyController, ILoadingDialogContro
         canceled: Boolean,
         model: ILoadingDialogController.Model?
     ) {
-        loadingDialogController.showLoadingDialog(msg, icon, canceled, model)
+        loadingDialogController?.showLoadingDialog(msg, icon, canceled, model)
     }
 
     override fun hideLoadingDialog() {
-        loadingDialogController.hideLoadingDialog()
+        loadingDialogController?.hideLoadingDialog()
     }
 
     override fun isLoadingDialogShow(): Boolean {
-        return loadingDialogController.isLoadingDialogShow()
+        return loadingDialogController?.isLoadingDialogShow()?:false
     }
 
     override fun showLoading() {
-        loadingController.showLoading()
+        loadingController?.showLoading()
     }
 
     override fun hideLoading() {
-        loadingController.hideLoading()
+        loadingController?.hideLoading()
     }
 
     override fun isLoadingShow(): Boolean {
-        return loadingController.isLoadingShow()
+        return loadingController?.isLoadingShow()?:false
     }
 }
