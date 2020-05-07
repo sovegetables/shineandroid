@@ -33,7 +33,7 @@ abstract class BaseFragment : Fragment(), IEmptyController, ILoadingDialogContro
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
-        if(view == null){
+        if(realContentView == null){
             val view = onBaseCreateView(inflater, container, savedInstanceState)
             if(view != null){
                 sDefaultContentViewDelegate = getContentViewDelegate()
@@ -47,10 +47,8 @@ abstract class BaseFragment : Fragment(), IEmptyController, ILoadingDialogContro
                 emptyController = sDefaultContentViewDelegate!!.getEmptyController()
                 loadingController = sDefaultContentViewDelegate!!.getLoadingController()
             }
-            return realContentView
-        }else{
-            return view
         }
+        return realContentView
     }
 
     open fun getTopBar(): TopBar? {

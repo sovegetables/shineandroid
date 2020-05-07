@@ -21,6 +21,7 @@
             <option value="$PROJECT_DIR$/simple" />
             <option value="$PROJECT_DIR$/textcrumbs" />
             <option value="$PROJECT_DIR$/topnavbar" />
+            <option value="$PROJECT_DIR$/viewpageradapter" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

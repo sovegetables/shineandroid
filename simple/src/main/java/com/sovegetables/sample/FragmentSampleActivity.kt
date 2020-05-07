@@ -78,20 +78,6 @@ class FragmentSampleActivity : AppCompatActivity() {
                         layoutInflater.createView(name, "", attributeSet)
                     }
                 }
-//
-//                if(onCreateView != null && parent!= null && parent.id == getFragmentContainer()){
-//                    val rootView = if(parent is ViewGroup){
-//                        LayoutInflater.from(context).inflate(R.layout.test_layout_activity_base_delegate, parent, false)
-//                    }else{
-//                        LayoutInflater.from(context).inflate(R.layout.test_layout_activity_base_delegate, null)
-//                    }
-//                    val flContent = rootView.findViewById<ViewGroup>(R.id.fl_base_delegate_content)
-//                    getFragmentContainer()!!.removeAllViews()
-//                    flContent.addView(onCreateView)
-//                    getFragmentContainer()!!.addView(flContent)
-//                    return flContent
-//                }
-
                 return onCreateView
             }
 
