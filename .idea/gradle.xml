@@ -22,6 +22,7 @@
             <option value="$PROJECT_DIR$/textcrumbs" />
             <option value="$PROJECT_DIR$/topnavbar" />
             <option value="$PROJECT_DIR$/viewpageradapter" />
+            <option value="$PROJECT_DIR$/viewstubfragment" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

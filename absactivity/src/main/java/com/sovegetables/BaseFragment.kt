@@ -29,7 +29,8 @@ abstract class BaseFragment : Fragment(), IEmptyController, ILoadingDialogContro
 
     private var realContentView: View? = null
 
-    final override fun onCreateView(
+    @CallSuper
+    override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?): View? {

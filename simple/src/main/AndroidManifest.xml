@@ -16,7 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".FragmentPageSampleActivity"></activity>
+        <activity android:name=".FragmentPageSampleActivity" />
         <activity android:name=".FragmentSampleActivity" />
         <activity android:name=".TextCrumbsActivity" />
         <activity android:name=".BaseActivitySampleActivity" />

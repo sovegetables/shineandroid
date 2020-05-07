@@ -11,6 +11,7 @@ import com.sovegetables.BaseFragment
 import com.sovegetables.viewpageadapter.BaseFragmentPagerAdapter
 import com.sovegetables.viewpageadapter.BaseFragmentStatePagerAdapter
 import com.sovegetables.viewpageadapter.IViewPageTitle
+import com.sovegetables.viewstubfragment.ViewStubFragment
 import kotlinx.android.synthetic.main.activity_base_sample.*
 import kotlinx.android.synthetic.main.activity_base_sample.btn_show_dialog_loading
 import kotlinx.android.synthetic.main.activity_base_sample.btn_show_loading
@@ -23,8 +24,8 @@ class FragmentPageSampleActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fragment_page_sample)
 
-//        val adapter = object : BaseFragmentPagerAdapter<InternalFragment>(supportFragmentManager) {}
-        val adapter = object : BaseFragmentStatePagerAdapter<InternalFragment>(supportFragmentManager) {}
+        val adapter = object : BaseFragmentPagerAdapter<InternalFragment>(supportFragmentManager) {}
+//        val adapter = object : BaseFragmentStatePagerAdapter<InternalFragment>(supportFragmentManager) {}
         view_page.adapter = adapter
 
         val fragments = arrayListOf<InternalFragment>()
@@ -34,7 +35,7 @@ class FragmentPageSampleActivity : AppCompatActivity() {
         adapter.setData(fragments)
     }
 
-    class InternalFragment: BaseFragment(), IViewPageTitle{
+    class InternalFragment: ViewStubFragment(), IViewPageTitle{
 
         companion object{
 
@@ -54,34 +55,10 @@ class FragmentPageSampleActivity : AppCompatActivity() {
 
         }
 
-        override fun onAttach(context: Context) {
-            super.onAttach(context)
-        }
-
-        override fun layoutId(): Int {
-            return R.layout.fragment_test
-        }
-
-        override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-            super.onViewCreated(view, savedInstanceState)
-
-            /*btn_show_dialog_loading.setOnClickListener {
-                showLoadingDialog(canceled = true)
-            }
-
-            btn_show_loading.setOnClickListener {
-                showLoading()
-
-                Handler().postDelayed({
-                    hideLoading()
-                }, 2000)
-            }
-
-            tv_page.text = getPageTitle()*/
-        }
-
-        override fun onStart() {
-            super.onStart()
+        override fun onCreateViewAfterViewStubInflated(
+            inflatedView: View,
+            savedInstanceState: Bundle?
+        ) {
             btn_show_dialog_loading.setOnClickListener {
                 showLoadingDialog(canceled = true)
             }
@@ -95,6 +72,10 @@ class FragmentPageSampleActivity : AppCompatActivity() {
             }
 
             tv_page.text = getPageTitle()
+        }
+
+        override fun layoutIdRes(): Int {
+            return R.layout.fragment_test
         }
 
         override fun getPageTitle(): CharSequence? {
