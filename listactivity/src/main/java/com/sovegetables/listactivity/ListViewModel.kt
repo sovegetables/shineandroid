@@ -6,7 +6,8 @@ import androidx.lifecycle.ViewModel
 
 abstract class ListViewModel(private var page: Page? = null): ViewModel() {
 
-    private val internalLiveData = MutableLiveData<AbListItem>()
+    private val internalSuccessLiveData = MutableLiveData<List<AbListItem>>()
+    private val internalErrorLiveData = MutableLiveData<String>()
 
     companion object{
 
@@ -18,8 +19,12 @@ abstract class ListViewModel(private var page: Page? = null): ViewModel() {
 
     }
 
-    fun getLiveData() : LiveData<AbListItem>{
-        return internalLiveData
+    fun getLiveData() : LiveData<List<AbListItem>>{
+        return internalSuccessLiveData
+    }
+
+    fun getErrorLiveData(): LiveData<String>{
+        return internalErrorLiveData
     }
 
     private val currentPage: Page

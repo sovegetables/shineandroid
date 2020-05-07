@@ -33,26 +33,24 @@ abstract class BaseFragment : Fragment(), IEmptyController, ILoadingDialogContro
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
-        val view = onBaseCreateView(inflater, container, savedInstanceState)
-        if(view != null){
-            sDefaultContentViewDelegate = getContentViewDelegate()
-            if (sDefaultContentViewDelegate == null) {
-                sDefaultContentViewDelegate = DefaultIContentView()
+        if(view == null){
+            val view = onBaseCreateView(inflater, container, savedInstanceState)
+            if(view != null){
+                sDefaultContentViewDelegate = getContentViewDelegate()
+                if (sDefaultContentViewDelegate == null) {
+                    sDefaultContentViewDelegate = DefaultIContentView()
+                }
+                realContentView = sDefaultContentViewDelegate!!.onCreateContentView(view)
+                topBarAction = sDefaultContentViewDelegate!!.onCreateTopBarAction()
+                topBarAction!!.setUpTopBar(getTopBar())
+                loadingDialogController = sDefaultContentViewDelegate!!.getLoadingDialogController()
+                emptyController = sDefaultContentViewDelegate!!.getEmptyController()
+                loadingController = sDefaultContentViewDelegate!!.getLoadingController()
             }
-//        val parent = view.parent
-//        val layoutParams = view.layoutParams
-//        if (parent is ViewGroup) {
-//            parent.removeView(view)
-            realContentView = sDefaultContentViewDelegate!!.onCreateContentView(view)
-            topBarAction = sDefaultContentViewDelegate!!.onCreateTopBarAction()
-            topBarAction!!.setUpTopBar(getTopBar())
-            loadingDialogController = sDefaultContentViewDelegate!!.getLoadingDialogController()
-            emptyController = sDefaultContentViewDelegate!!.getEmptyController()
-            loadingController = sDefaultContentViewDelegate!!.getLoadingController()
-//            parent.addView(realContentView, layoutParams)
-//        }
+            return realContentView
+        }else{
+            return view
         }
-        return realContentView
     }
 
     open fun getTopBar(): TopBar? {

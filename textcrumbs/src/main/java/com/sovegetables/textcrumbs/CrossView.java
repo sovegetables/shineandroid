@@ -10,6 +10,8 @@ import android.graphics.PorterDuffXfermode;
 import android.util.AttributeSet;
 import android.view.View;
 
+import androidx.annotation.ColorInt;
+
 public class CrossView extends View {
     private int mBackgroundColor;
     private static final int DEFAULT_BACKGROUND_COLOR = Color.RED;
@@ -50,7 +52,7 @@ public class CrossView extends View {
         int width = getWidth();
         int circleRadius = width / 2;
         float radius = width >> 2;
-        canvas.saveLayer(0,0,1000,1000,paint, Canvas.ALL_SAVE_FLAG);
+        canvas.saveLayer(0,0,1000,1000, paint, Canvas.ALL_SAVE_FLAG);
         canvas.drawCircle(circleRadius, circleRadius, (float) circleRadius, paint);
         paint.setXfermode(mPorterDuffXfermode);
         paint.setDither(true);
@@ -61,7 +63,8 @@ public class CrossView extends View {
 
     }
 
-    public void setBgColor(int bgColor){
+    public void setBgColor(@ColorInt int bgColor){
         mBackgroundColor = bgColor;
+        postInvalidate();
     }
 }

@@ -93,6 +93,9 @@ public class TextCrumbs extends FrameLayout {
                     height += cHeight / 2;
                 }
             }
+            if (i == cCount - 1) {
+                height += mItemVerticalMargin;
+            }
         }
         setMeasuredDimension((widthMode == MeasureSpec.EXACTLY) ? sizeWidth : width,
                 (heightMode == MeasureSpec.EXACTLY) ? sizeHeight : height);

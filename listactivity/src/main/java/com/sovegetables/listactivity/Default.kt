@@ -8,11 +8,14 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter
 import com.scwang.smartrefresh.layout.header.ClassicsHeader
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
+import com.sovegetables.adapter.AbsDelegationAdapter
 
 open class Default: IListContentController<List<AbListItem>> {
 
     private lateinit var mShineRecyclerView: RecyclerView
     private lateinit var mShineSmartRefreshLayout: SmartRefreshLayout
+    private var mAdapter: AbsDelegationAdapter<List<*>>? = null
+    private var mOnLoadMoreActionListener: OnLoadMoreActionListener? = null
 
     override fun layoutRes(): Int {
         return R.layout.shine_activity_list
@@ -21,7 +24,6 @@ open class Default: IListContentController<List<AbListItem>> {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         mShineRecyclerView = view!!.findViewById(R.id.shine_recycler_view)
         mShineSmartRefreshLayout = view.findViewById(R.id.shine_smart_refresh_layout)
-
         val header = ClassicsHeader(view.context)
         header.setFinishDuration(0)
         val footer = ClassicsFooter(view.context)
@@ -34,21 +36,32 @@ open class Default: IListContentController<List<AbListItem>> {
         mShineSmartRefreshLayout.setOnRefreshLoadMoreListener(object : OnRefreshLoadMoreListener {
 
             override fun onLoadMore(refreshLayout: RefreshLayout) {
-
+                mOnLoadMoreActionListener?.loadMore()
             }
 
             override fun onRefresh(refreshLayout: RefreshLayout) {
-
+                mOnLoadMoreActionListener?.onRefresh()
             }
 
         })
     }
 
-    override fun setAdapter(adapter: RecyclerView.Adapter<out RecyclerView.ViewHolder>) {
+    override fun setAdapter(adapter: AbsDelegationAdapter<List<*>>) {
+        mAdapter = adapter
         mShineRecyclerView.adapter = adapter
     }
 
-    override fun setData(data: List<AbListItem>) {
-        TODO("Not yet implemented")
+    override fun setData(data: List<AbListItem>?) {
+        mAdapter?.items = data
+    }
+
+    override fun setOnLoadMoreActionListener(l: OnLoadMoreActionListener?){
+        mOnLoadMoreActionListener = l
+    }
+
+    override fun onFinishedLoadMore() {
+    }
+
+    override fun onFinishedRefreshing() {
     }
 }

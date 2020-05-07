@@ -7,6 +7,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.sovegetables.BaseActivity
+import com.sovegetables.adapter.AbsDelegationAdapter
+import com.sovegetables.adapter.AbsListAdapter
 import java.lang.reflect.ParameterizedType
 
 abstract class AbListActivity<out V: ListViewModel> : BaseActivity() {
@@ -26,13 +28,24 @@ abstract class AbListActivity<out V: ListViewModel> : BaseActivity() {
         setContentView(view)
         listContentController.onViewCreated(view, savedInstanceState)
         listContentController.setAdapter(getListAdapter())
-
         viewModel = ViewModelProvider(viewModelStore, ViewModelProvider.NewInstanceFactory()).get(getVClass()!!)
-        viewModel.getLiveData().observe(this, object : Observer<AbListItem>{
-            override fun onChanged(t: AbListItem?) {
-
+        viewModel.getLiveData().observe(this, object : Observer<List<AbListItem>>{
+            override fun onChanged(t: List<AbListItem>?) {
+                listContentController.setData(t)
             }
         })
+
+        listContentController.setOnLoadMoreActionListener(object : OnLoadMoreActionListener{
+            override fun loadMore() {
+                viewModel.loadMore()
+            }
+
+            override fun onRefresh() {
+                viewModel.loadFirst()
+            }
+
+        })
+
         viewModel.loadFirst()
     }
 
@@ -47,7 +60,7 @@ abstract class AbListActivity<out V: ListViewModel> : BaseActivity() {
         return null
     }
 
-    abstract fun getListAdapter(): RecyclerView.Adapter<out RecyclerView.ViewHolder>
+    abstract fun getListAdapter(): AbsDelegationAdapter<List<*>>
 
     open fun getListContentController(): IListContentController<List<AbListItem>>{
         return Default()

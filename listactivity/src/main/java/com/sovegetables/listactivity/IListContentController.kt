@@ -2,11 +2,14 @@ package com.sovegetables.listactivity
 
 import android.os.Bundle
 import android.view.View
-import androidx.recyclerview.widget.RecyclerView
+import com.sovegetables.adapter.AbsDelegationAdapter
 
 interface IListContentController<T> {
     fun layoutRes(): Int
     fun onViewCreated(view: View?, savedInstanceState: Bundle?)
-    fun setAdapter(adapter: RecyclerView.Adapter<out RecyclerView.ViewHolder>)
-    fun setData(data: T)
+    fun setAdapter(adapter: AbsDelegationAdapter<List<*>>)
+    fun setData(data: T?)
+    fun setOnLoadMoreActionListener(l: OnLoadMoreActionListener?)
+    fun onFinishedRefreshing()
+    fun onFinishedLoadMore()
 }
