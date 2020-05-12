@@ -19,6 +19,8 @@
             <option value="$PROJECT_DIR$/logger" />
             <option value="$PROJECT_DIR$/permission" />
             <option value="$PROJECT_DIR$/retrofithelper" />
+            <option value="$PROJECT_DIR$/shortcutbadger" />
+            <option value="$PROJECT_DIR$/shortcutcreator" />
             <option value="$PROJECT_DIR$/simple" />
             <option value="$PROJECT_DIR$/textcrumbs" />
             <option value="$PROJECT_DIR$/topnavbar" />
