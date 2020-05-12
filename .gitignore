@@ -13,3 +13,4 @@
 .externalNativeBuild
 .cxx
 /temp.properties
+.project
