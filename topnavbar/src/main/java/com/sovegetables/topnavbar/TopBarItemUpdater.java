@@ -25,7 +25,7 @@ public abstract class TopBarItemUpdater {
         updaterParam.isTextColorSet = false;
         updaterParam.textColorRes = INVALID;
         updaterParam.visibility = INVALID;
-        updaterParam.enable = false;
+        updaterParam.isEnableSet = false;
     }
 
     static class UpdaterParam{
@@ -36,6 +36,7 @@ public abstract class TopBarItemUpdater {
         @ColorInt
         public int textColor;
         public boolean isTextColorSet;
+        public boolean isEnableSet;
         @ColorRes
         public int textColorRes = INVALID;
         public int visibility = INVALID;
@@ -82,6 +83,7 @@ public abstract class TopBarItemUpdater {
 
     public final TopBarItemUpdater enable(boolean enable){
         UpdaterParam updaterParam = getUpdaterParam();
+        updaterParam.isEnableSet = true;
         updaterParam.enable = enable;
         return this;
     }
@@ -138,8 +140,11 @@ public abstract class TopBarItemUpdater {
             if(iconRes != INVALID){
                 ActionBarView.setItemIcon(textView, ContextCompat.getDrawable(context, iconRes));
             }
-            boolean enable = updaterParam.enable;
-            textView.setEnabled(enable);
+            if(updaterParam.isEnableSet){
+                boolean enable = updaterParam.enable;
+                textView.setEnabled(enable);
+            }
+
         }
     }
 
