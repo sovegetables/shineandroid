@@ -57,6 +57,7 @@ dependencies {
     implementation project(':textcrumbs')
     implementation project(':viewstubfragment')
     implementation project(':viewpageradapter')
+    implementation project(':marqueetextview')
 
     implementation 'com.github.bumptech.glide:glide:4.8.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'

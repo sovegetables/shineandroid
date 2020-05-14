@@ -38,8 +38,9 @@ class MainActivity : BaseActivity() {
         list.add(MainItem("BaseActivity Sample", BaseActivitySampleActivity::class.java))
         list.add(MainItem("权限Sample", PermissionSampleMainActivity::class.java))
         list.add(MainItem("TextCrumb Sample", TextCrumbsActivity::class.java))
-        list.add(MainItem("BaseFragmentSampleActivity", FragmentSampleActivity::class.java))
-        list.add(MainItem("FragmentPageSampleActivity", FragmentPageSampleActivity::class.java))
+        list.add(MainItem("BaseFragmentSample", FragmentSampleActivity::class.java))
+        list.add(MainItem("FragmentPageSample", FragmentPageSampleActivity::class.java))
+        list.add(MainItem("MarqueeTextViewSample", MarqueeTextViewActivity::class.java))
         adapter.items = list
         rv_sample.adapter = adapter
 
