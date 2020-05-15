@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
@@ -49,7 +50,7 @@ public class MarqueeTextView extends AppCompatTextView {
                     marqueeListener.onFinish();
                 }
             }
-            if (!flag) {
+            if (!flag && getVisibility() == View.VISIBLE) {
                 currentScrollPos += 1;
                 scrollTo(currentScrollPos, 0);
             }
