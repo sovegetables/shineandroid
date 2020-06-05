@@ -30,7 +30,7 @@ fun BaseActivity.titleTopBar(title: CharSequence?): TopBar {
         .build(this)
 }
 
-fun BaseActivity.titleBuilder(title: CharSequence?): TopBar.Builder {
+fun BaseActivity.titleBuilder(title: CharSequence? = ""): TopBar.Builder {
     val leftItem = defaultLeftTopBarItem(BaseActivity.leftTopItemIconRes)
     return TopBar.Builder()
         .left(leftItem)

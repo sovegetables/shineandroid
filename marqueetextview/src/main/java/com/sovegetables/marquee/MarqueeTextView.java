@@ -6,54 +6,42 @@ import android.graphics.Paint;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
-
-import java.util.TimerTask;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 public class MarqueeTextView extends AppCompatTextView {
 
     private static final String TAG = "MarqueeTextView";
+    public static final int DEFAULT_SPEED = 13;
 
     private int currentScrollPos = 0;
-    private int speed = 8;
+    private int speed = DEFAULT_SPEED;
     private int textWidth = -1;
     private volatile boolean isMeasured = false;
-    private volatile boolean flag = false;
-    private volatile boolean isStop = false;
-    private IMarqueeListener marqueeListener;
-    private Future future;
+    private volatile boolean isStop = true;
 
-    private final ScheduledExecutorService pool = Executors.newScheduledThreadPool(1);
+    final Runnable mRunnable = new Runnable() {
 
-    final TimerTask task = new TimerTask() {
         @Override
         public void run() {
             if (textWidth == -1) {
                 postInvalidate();
                 return;
             }
+            if(textWidth <= getWidth()){
+                return;
+            }
             if (isStop) {
                 return;
             }
-            if (!flag && currentScrollPos >= textWidth - getWidth()) {
-                task.cancel();
-                flag = true;
-                if (marqueeListener != null) {
-                    marqueeListener.onFinish();
-                }
-            }
-            if (!flag && getVisibility() == View.VISIBLE) {
-                currentScrollPos += 1;
+            if (currentScrollPos >= textWidth - getWidth()) {
+                reset();
+            }else {
+                currentScrollPos +=  getResources().getDisplayMetrics().density;
                 scrollTo(currentScrollPos, 0);
             }
+            postDelayed(mRunnable, speed);
         }
     };
 
@@ -74,17 +62,15 @@ public class MarqueeTextView extends AppCompatTextView {
 
     private void init() {
         setSingleLine();
-        setEllipsize(null);
+        super.setEllipsize(null);
     }
 
     @Override
     public void setEllipsize(TextUtils.TruncateAt where) {
-//        super.setEllipsize(where);
     }
 
     @Override
     public void setGravity(int gravity) {
-//        super.setGravity(gravity);
     }
 
     @Override
@@ -101,27 +87,28 @@ public class MarqueeTextView extends AppCompatTextView {
 
     private void startScroll() {
         reset();
-        stopFuture();
-        future = pool.scheduleAtFixedRate(task, 0, speed, TimeUnit.MILLISECONDS);
-    }
-
-    private void postStartScroll(int delay) {
-        reset();
-        stopFuture();
-        future = pool.scheduleAtFixedRate(task, delay, speed, TimeUnit.MILLISECONDS);
+        if(isStop){
+            isStop = false;
+            postDelayed(mRunnable, speed);
+        }
     }
 
     private void stopScroll() {
         isStop = true;
-        stopFuture();
     }
 
     public void setSpeed(int speed) {
         this.speed = speed;
     }
 
-    public void setMarqueeListener(IMarqueeListener marqueeListener) {
-        this.marqueeListener = marqueeListener;
+    @Override
+    public void setVisibility(int visibility) {
+        super.setVisibility(visibility);
+        if(visibility == VISIBLE){
+            startScroll();
+        }else {
+            stopScroll();
+        }
     }
 
     @Override
@@ -142,30 +129,18 @@ public class MarqueeTextView extends AppCompatTextView {
         textWidth = (int) paint.measureText(str);
     }
 
-    public void reset() {
-        flag = false;
-        isStop = false;
+    private void reset() {
         currentScrollPos = 0;
         scrollTo(currentScrollPos, 0);
     }
 
     public void setText(String str) {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < 100;i++){
+        for (int i = 0; i < 20;i++){
             sb.append(str).append("   ");
         }
         super.setText(sb.toString());
         isMeasured = false;
         invalidate();
     }
-
-    private synchronized void stopFuture() {
-        if (future != null && !future.isCancelled()) {
-            future.cancel(true);
-        }
-        task.cancel();
-    }
-
-
-
 }
