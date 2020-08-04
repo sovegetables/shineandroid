@@ -24,6 +24,45 @@
         android:layout_marginTop="20dp"
         />
 
+    <TextView
+        android:id="@+id/tv_marquee_3"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textColor="@android:color/holo_blue_light"
+        tools:text="好多阿凡达后方好地方"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:gravity="center"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_marquee_2"
+        android:layout_marginTop="20dp"
+        android:focusableInTouchMode="true"
+        >
+        <requestFocus/>
+    </TextView>
+
+    <TextView
+        android:id="@+id/tv_marquee_4"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textColor="@android:color/holo_blue_light"
+        android:text="好多阿凡达后方好多阿凡达后方好地方好好多阿凡达后方好地方地方"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:gravity="center"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_marquee_3"
+        android:rotation="90"
+        android:layout_marginTop="70dp"
+        android:focusableInTouchMode="true"
+        >
+        <requestFocus/>
+    </TextView>
+
     <com.sovegetables.marquee.MarqueeTextView
         android:id="@+id/tv_marquee"
         android:layout_width="70dp"
@@ -40,6 +79,24 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+    <com.qmuiteam.qmui.widget.QMUIVerticalTextView
+        android:id="@+id/vertical_text"
+        android:layout_width="20dp"
+        android:layout_height="wrap_content"
+        android:background="@color/btn_filled_blue_bg_normal"
+        android:textSize="18sp"
+        android:textColor="@android:color/holo_blue_light"
+        tools:text="好多阿凡达后方好地方"
+        tools:singleLine="true"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:lines="1"
+        app:layout_constraintTop_toBottomOf="@+id/tv_marquee"
+        app:layout_constraintLeft_toLeftOf="@+id/tv_marquee"
+        app:layout_constraintRight_toRightOf="@+id/tv_marquee"
+        android:layout_marginTop="50dp"
         />
 
     <ProgressBar

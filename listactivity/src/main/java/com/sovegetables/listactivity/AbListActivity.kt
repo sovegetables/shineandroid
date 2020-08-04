@@ -1,14 +1,11 @@
 package com.sovegetables.listactivity
 
 import android.os.Bundle
-import android.view.ViewGroup
 import androidx.annotation.CallSuper
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.RecyclerView
 import com.sovegetables.BaseActivity
 import com.sovegetables.adapter.AbsDelegationAdapter
-import com.sovegetables.adapter.AbsListAdapter
 import java.lang.reflect.ParameterizedType
 
 abstract class AbListActivity<out V: ListViewModel> : BaseActivity() {
