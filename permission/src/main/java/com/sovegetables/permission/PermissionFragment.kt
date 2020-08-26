@@ -1,5 +1,6 @@
 package com.sovegetables.permission
 
+import android.util.Log
 import android.util.SparseArray
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -8,54 +9,51 @@ internal class PermissionFragment : Fragment(){
 
     companion object{
 
-        private const val FRAGMENT_TAG =
-            "com.sovegtables.permission_fragment_tag"
+        private const val FRAGMENT_TAG = "com.sovegtables.permission_fragment_tag"
+        private var IS_DEBUG = true
 
-        fun injectIfNeededIn(activity: FragmentActivity) {
+        fun injectIfNeededIn(activity: FragmentActivity) : PermissionFragment{
             val manager = activity.supportFragmentManager
-            if (manager.findFragmentByTag(FRAGMENT_TAG) == null) {
-                manager.beginTransaction().add(PermissionFragment(), FRAGMENT_TAG)
+            var fragment = manager.findFragmentByTag(FRAGMENT_TAG) as PermissionFragment?
+            if (fragment == null) {
+                val permissionFragment = PermissionFragment()
+                manager.beginTransaction().add(permissionFragment, FRAGMENT_TAG)
                     .commitNowAllowingStateLoss()
+                fragment = permissionFragment;
             }
+            return fragment
         }
 
-        fun injectIfNeededIn(fragment: Fragment){
+        fun injectIfNeededIn(fragment: Fragment) : PermissionFragment{
             val manager = fragment.childFragmentManager
-            if(manager.findFragmentByTag(FRAGMENT_TAG) == null){
-                manager.beginTransaction().add(PermissionFragment(), FRAGMENT_TAG)
+            var pFragment = manager.findFragmentByTag(FRAGMENT_TAG) as PermissionFragment?
+            if(pFragment == null){
+                val permissionFragment = PermissionFragment()
+                manager.beginTransaction().add(permissionFragment, FRAGMENT_TAG)
                     .commitNowAllowingStateLoss()
+                pFragment = permissionFragment
             }
+            return pFragment
         }
 
-        internal operator fun get(fragment: Fragment): PermissionFragment {
-            return fragment.childFragmentManager.findFragmentByTag(FRAGMENT_TAG) as PermissionFragment
-        }
-
-        internal operator fun get(activity: FragmentActivity): PermissionFragment {
-            return activity.supportFragmentManager.findFragmentByTag(FRAGMENT_TAG) as PermissionFragment
-        }
     }
 
     private val requestMap = SparseArray<PermissionRequest>()
-    private var requestCodeRecord = 0
 
     fun requestPermissions(permissions:Array<out String>, listener: OnPermissionResultListener?) {
-        val request = PermissionRequest(
-            this,
-            requestCodeRecord,
-            permissions,
-            listener
-        )
-        requestMap.put(requestCodeRecord, request)
-        requestCodeRecord ++
+        val requestCode = Util.createRequestCode()
+        if(IS_DEBUG){
+            Log.d("requestPermissions", "requestCode:$requestCode")
+        }
+        val request = PermissionRequest(this, requestCode, permissions, listener)
+        requestMap.put(requestCode, request)
         requestPermissions(request.permissions, request.requestCode)
     }
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
+        grantResults: IntArray) {
         val request = requestMap.get(requestCode)
         request?.onHandlerPermissionsResult(permissions, grantResults)
     }

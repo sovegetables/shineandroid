@@ -1,7 +1,6 @@
 package com.sovegetables.permission
 
 import android.app.Activity
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 
@@ -17,20 +16,17 @@ class Permissions {
         @JvmStatic
         fun request(activity: Activity, permissions: Array<String>, listener: OnPermissionResultListener?){
             if(activity is FragmentActivity){
-                PermissionFragment.injectIfNeededIn(activity)
-                val permissionFragment = PermissionFragment[activity]
+                val permissionFragment = PermissionFragment.injectIfNeededIn(activity)
                 permissionFragment.requestPermissions(permissions, listener)
             }else{
-                PermissionFragment2.injectIfNeededIn(activity)
-                val permissionFragment = PermissionFragment2[activity]
+                val permissionFragment = PermissionCompatFragment.injectIfNeededIn(activity)
                 permissionFragment.requestPermissions(permissions, listener)
             }
         }
 
         @JvmStatic
         fun request(fragment: Fragment, permissions: Array<String>, listener: OnPermissionResultListener?){
-            PermissionFragment.injectIfNeededIn(fragment)
-            val permissionFragment = PermissionFragment[fragment]
+            val permissionFragment = PermissionFragment.injectIfNeededIn(fragment)
             permissionFragment.requestPermissions(permissions, listener)
         }
 
@@ -41,8 +37,7 @@ class Permissions {
 
         @JvmStatic
         fun request(fragment: android.app.Fragment, permissions: Array<String>, listener: OnPermissionResultListener?){
-            PermissionFragment2.injectIfNeededIn(fragment)
-            val permissionFragment = PermissionFragment2[fragment]
+            val permissionFragment = PermissionCompatFragment.injectIfNeededIn(fragment)
             permissionFragment.requestPermissions(permissions, listener)
         }
 

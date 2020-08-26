@@ -105,7 +105,7 @@ public abstract class TopBarUpdater {
         public void update(Params params){
             final CharSequence title = params.title;
             final Context context = actionBarView.getContext();
-            if(!INVALID_TITLE.equalsIgnoreCase(title.toString())){
+            if(title != null && !INVALID_TITLE.equalsIgnoreCase(title.toString())){
                 actionBarView.setTitle(title);
             }else {
                 if(params.titleRes != INVALID){

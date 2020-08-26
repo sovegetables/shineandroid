@@ -4,7 +4,7 @@ import android.app.Fragment
 import android.content.pm.PackageManager
 import android.os.Build
 
-internal class PermissionRequest2(var fragment: Fragment, var requestCode: Int, var permissions: Array<out String>, var listener: OnPermissionResultListener?){
+internal class PermissionCompatRequest(var fragment: Fragment, var requestCode: Int, var permissions: Array<out String>, var listener: OnPermissionResultListener?){
 
     fun onHandlerPermissionsResult(permissions: Array<out String>?, grantResults: IntArray?) {
         if(permissions != null && grantResults != null && permissions.isNotEmpty() && grantResults.isNotEmpty()){

@@ -12,6 +12,8 @@ import com.sovegetables.adapter.AbsListAdapter
 import com.sovegetables.adapter.CommonViewHolder
 import com.sovegetables.topnavbar.TopBar
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
 
 class MainActivity : BaseActivity() {
 
