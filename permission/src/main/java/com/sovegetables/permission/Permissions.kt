@@ -8,6 +8,8 @@ class Permissions {
 
     companion object{
 
+
+
         @JvmStatic
         fun request(activity: Activity, permission: String, listener: OnPermissionResultListener?){
             request(activity, arrayOf(permission), listener)
@@ -16,18 +18,15 @@ class Permissions {
         @JvmStatic
         fun request(activity: Activity, permissions: Array<String>, listener: OnPermissionResultListener?){
             if(activity is FragmentActivity){
-                val permissionFragment = PermissionFragment.injectIfNeededIn(activity)
-                permissionFragment.requestPermissions(permissions, listener)
+                PermissionFragment.requestPermissions(activity, permissions, listener)
             }else{
-                val permissionFragment = PermissionCompatFragment.injectIfNeededIn(activity)
-                permissionFragment.requestPermissions(permissions, listener)
+                PermissionCompatFragment.requestPermissions(activity, permissions, listener)
             }
         }
 
         @JvmStatic
         fun request(fragment: Fragment, permissions: Array<String>, listener: OnPermissionResultListener?){
-            val permissionFragment = PermissionFragment.injectIfNeededIn(fragment)
-            permissionFragment.requestPermissions(permissions, listener)
+            PermissionFragment.requestPermissions(fragment, permissions, listener)
         }
 
         @JvmStatic
@@ -37,8 +36,7 @@ class Permissions {
 
         @JvmStatic
         fun request(fragment: android.app.Fragment, permissions: Array<String>, listener: OnPermissionResultListener?){
-            val permissionFragment = PermissionCompatFragment.injectIfNeededIn(fragment)
-            permissionFragment.requestPermissions(permissions, listener)
+            PermissionCompatFragment.requestPermissions(fragment, permissions, listener)
         }
 
         @JvmStatic

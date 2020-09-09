@@ -1,5 +1,7 @@
 package com.sovegetables.permission
 
+import android.content.Context
+import android.os.Build
 import android.util.Log
 import android.util.SparseArray
 import androidx.fragment.app.Fragment
@@ -10,44 +12,69 @@ internal class PermissionFragment : Fragment(){
     companion object{
 
         private const val FRAGMENT_TAG = "com.sovegtables.permission_fragment_tag"
-        private var IS_DEBUG = true
+        private var IS_DEBUG = false
 
-        fun injectIfNeededIn(activity: FragmentActivity) : PermissionFragment{
+        fun requestPermissions(activity: FragmentActivity, permissions: Array<String>, listener: OnPermissionResultListener?){
             val manager = activity.supportFragmentManager
-            var fragment = manager.findFragmentByTag(FRAGMENT_TAG) as PermissionFragment?
+            val fragment = manager.findFragmentByTag(FRAGMENT_TAG) as PermissionFragment?
             if (fragment == null) {
                 val permissionFragment = PermissionFragment()
-                manager.beginTransaction().add(permissionFragment, FRAGMENT_TAG)
+                manager.beginTransaction()
+                    .add(permissionFragment, FRAGMENT_TAG)
+                    .runOnCommit {
+                        permissionFragment.requestPermissions(permissions, listener)
+                    }
                     .commitNowAllowingStateLoss()
-                fragment = permissionFragment;
+            }else{
+                fragment.requestPermissions(permissions, listener)
             }
-            return fragment
         }
 
-        fun injectIfNeededIn(fragment: Fragment) : PermissionFragment{
+        fun requestPermissions(fragment: Fragment, permissions: Array<String>, listener: OnPermissionResultListener?){
             val manager = fragment.childFragmentManager
-            var pFragment = manager.findFragmentByTag(FRAGMENT_TAG) as PermissionFragment?
+            val pFragment = manager.findFragmentByTag(FRAGMENT_TAG) as PermissionFragment?
             if(pFragment == null){
                 val permissionFragment = PermissionFragment()
                 manager.beginTransaction().add(permissionFragment, FRAGMENT_TAG)
+                    .runOnCommit {
+                        permissionFragment.requestPermissions(permissions, listener)
+                    }
                     .commitNowAllowingStateLoss()
-                pFragment = permissionFragment
+            }else{
+                pFragment.requestPermissions(permissions, listener)
             }
-            return pFragment
         }
 
     }
 
     private val requestMap = SparseArray<PermissionRequest>()
+    private val requestMapWithPending = SparseArray<PermissionRequest>()
 
-    fun requestPermissions(permissions:Array<out String>, listener: OnPermissionResultListener?) {
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        val size = requestMapWithPending.size()
+        if(size > 0){
+            for (item in 0 until size){
+                val request = requestMapWithPending.get(requestMapWithPending.keyAt(item))
+                if(request != null){
+                    requestPermissions(request.permissions, request.requestCode)
+                }
+            }
+        }
+    }
+
+    private fun requestPermissions(permissions:Array<out String>, listener: OnPermissionResultListener?) {
         val requestCode = Util.createRequestCode()
         if(IS_DEBUG){
             Log.d("requestPermissions", "requestCode:$requestCode")
         }
         val request = PermissionRequest(this, requestCode, permissions, listener)
         requestMap.put(requestCode, request)
-        requestPermissions(request.permissions, request.requestCode)
+        if(host != null){
+            requestPermissions(request.permissions, request.requestCode)
+        }else{
+            requestMapWithPending.put(requestCode, request)
+        }
     }
 
     override fun onRequestPermissionsResult(
@@ -55,7 +82,11 @@ internal class PermissionFragment : Fragment(){
         permissions: Array<out String>,
         grantResults: IntArray) {
         val request = requestMap.get(requestCode)
-        request?.onHandlerPermissionsResult(permissions, grantResults)
+        if(request != null){
+            request.onHandlerPermissionsResult(permissions, grantResults)
+            requestMap.remove(requestCode)
+            requestMapWithPending.remove(requestCode)
+        }
     }
 
 }
