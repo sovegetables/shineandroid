@@ -8,7 +8,16 @@ class Permissions {
 
     companion object{
 
+        private var deniedHandler: DeniedHandler? = null
 
+        @JvmStatic
+        fun setDeniedHandler(handler: DeniedHandler){
+            deniedHandler = handler
+        }
+
+        internal fun getDeniedHandler(): DeniedHandler?{
+            return deniedHandler
+        }
 
         @JvmStatic
         fun request(activity: Activity, permission: String, listener: OnPermissionResultListener?){

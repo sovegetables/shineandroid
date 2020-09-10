@@ -37,6 +37,9 @@ internal class PermissionCompatRequest(var fragment: Fragment, var requestCode: 
                         deniedPermissions.add(r)
                     }
                 }
+                if(fragment.activity != null){
+                    Permissions.getDeniedHandler()?.onHandler(fragment.activity, deniedPermissions)
+                }
                 listener?.denied(grantedPermissions, deniedPermissions)
             }
 

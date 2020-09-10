@@ -38,6 +38,9 @@ internal class PermissionRequest(var fragment: Fragment, var requestCode: Int, v
                         deniedPermissions.add(r)
                     }
                 }
+                if(fragment.activity != null){
+                    Permissions.getDeniedHandler()?.onHandler(fragment.activity!!, deniedPermissions)
+                }
                 listener?.denied(grantedPermissions, deniedPermissions)
             }
 

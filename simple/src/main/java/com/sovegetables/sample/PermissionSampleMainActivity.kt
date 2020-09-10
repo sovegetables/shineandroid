@@ -1,20 +1,85 @@
 package com.sovegetables.sample
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageInfo
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.qmuiteam.qmui.widget.dialog.QMUIDialog
+import com.sovegetables.permission.DeniedHandler
 import com.sovegetables.permission.OnPermissionResultListener
 import com.sovegetables.permission.PermissionResult
 import com.sovegetables.permission.Permissions
 import kotlinx.android.synthetic.main.activity_permission_sample.*
+import java.lang.StringBuilder
 
 
 class PermissionSampleMainActivity : AppCompatActivity() {
 
+    private var permissionsMap = hashMapOf<String, String>()
+
+    init {
+        permissionsMap[android.Manifest.permission.READ_EXTERNAL_STORAGE] = "存储"
+        permissionsMap[android.Manifest.permission.WRITE_EXTERNAL_STORAGE] = "存储"
+        permissionsMap[android.Manifest.permission.RECORD_AUDIO] = "录音"
+        permissionsMap[android.Manifest.permission.READ_CONTACTS] = "通讯录"
+        permissionsMap[android.Manifest.permission.WRITE_CONTACTS] = "通讯录"
+        permissionsMap[android.Manifest.permission.CALL_PHONE] = "电话"
+        permissionsMap[android.Manifest.permission.CAMERA] = "摄像头"
+        permissionsMap[android.Manifest.permission.ACCESS_FINE_LOCATION] = "地理位置"
+    }
+
+    fun getAppName(context: Context): String? {
+        try {
+            val packageManager: PackageManager = context.getPackageManager()
+            val packageInfo: PackageInfo = packageManager.getPackageInfo(
+                context.getPackageName(), 0
+            )
+            val labelRes = packageInfo.applicationInfo.labelRes
+            return context.getResources().getString(labelRes)
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+        }
+        return null
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_permission_sample)
+
+
+        Permissions.setDeniedHandler(object : DeniedHandler{
+            override fun onHandler(activity: Activity, results: ArrayList<PermissionResult>) {
+                val sb = StringBuilder()
+                results.forEach { p ->
+                    sb.append(permissionsMap[p.permission])
+                    sb.append("、")
+                }
+                if(sb.isNotEmpty()){
+                    sb.deleteCharAt(sb.length - 1)
+                }
+                QMUIDialog.MessageDialogBuilder(activity)
+                    .setTitle("温馨提示")
+                    .setMessage("${getAppName(activity)}获取你的${sb.toString()}权限仅用于提供服务，请在设置中开启相关权限。")
+                    .addAction("去设置"
+                    ) { dialog, _ ->
+                        try {
+                            dialog.dismiss()
+                            val i = Intent()
+                            i.action = "android.settings.APPLICATION_DETAILS_SETTINGS"
+                            i.data = Uri.fromParts("package", activity.packageName, null)
+                            activity.startActivity(i)
+                        } catch (ignored: Exception) {
+                        }
+                    }.show()
+            }
+        })
+
+
         btn_sd_card.setOnClickListener {
             Permissions.request(this, arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), object :
                 OnPermissionResultListener {
