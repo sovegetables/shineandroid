@@ -16,7 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MarqueeTextViewActivity"></activity>
+        <activity android:name=".BigPictureActivity"></activity>
+        <activity android:name=".MarqueeTextViewActivity" />
         <activity android:name=".FragmentPageSampleActivity" />
         <activity android:name=".FragmentSampleActivity" />
         <activity android:name=".TextCrumbsActivity" />

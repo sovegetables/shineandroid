@@ -13,20 +13,11 @@ import com.sovegetables.topnavbar.TopBar
 
 abstract class BaseFragment : Fragment(), IEmptyController, ILoadingDialogController, ILoadingController{
 
-    companion object{
-
-        private var sDefaultContentViewDelegate: IContentView? = null
-
-        fun setsDefaultContentViewDelegate(defaultContentViewDelegate: IContentView?) {
-            sDefaultContentViewDelegate = defaultContentViewDelegate
-        }
-    }
-
     protected var topBarAction: ITopBarAction? = null
     protected var loadingDialogController: ILoadingDialogController? = null
     protected var loadingController: ILoadingController? = null
     protected var emptyController: IEmptyController? = null
-
+    private var contentViewDelegate: IContentView? = null
     private var realContentView: View? = null
 
     @CallSuper
@@ -37,16 +28,16 @@ abstract class BaseFragment : Fragment(), IEmptyController, ILoadingDialogContro
         if(realContentView == null){
             val view = onBaseCreateView(inflater, container, savedInstanceState)
             if(view != null){
-                sDefaultContentViewDelegate = getContentViewDelegate()
-                if (sDefaultContentViewDelegate == null) {
-                    sDefaultContentViewDelegate = DefaultIContentView()
+                contentViewDelegate = getContentViewDelegate()
+                if (contentViewDelegate == null) {
+                    contentViewDelegate = DefaultIContentView()
                 }
-                realContentView = sDefaultContentViewDelegate!!.onCreateContentView(view)
-                topBarAction = sDefaultContentViewDelegate!!.onCreateTopBarAction()
+                realContentView = contentViewDelegate!!.onCreateContentView(view)
+                topBarAction = contentViewDelegate!!.onCreateTopBarAction()
                 topBarAction!!.setUpTopBar(getTopBar())
-                loadingDialogController = sDefaultContentViewDelegate!!.getLoadingDialogController()
-                emptyController = sDefaultContentViewDelegate!!.getEmptyController()
-                loadingController = sDefaultContentViewDelegate!!.getLoadingController()
+                loadingDialogController = contentViewDelegate!!.getLoadingDialogController()
+                emptyController = contentViewDelegate!!.getEmptyController()
+                loadingController = contentViewDelegate!!.getLoadingController()
             }
         }
         return realContentView
@@ -62,13 +53,13 @@ abstract class BaseFragment : Fragment(), IEmptyController, ILoadingDialogContro
 
     open fun addViewBelowTopBar(view: View) {
         if(lifecycle.currentState.isAtLeast(Lifecycle.State.INITIALIZED)){
-            sDefaultContentViewDelegate?.addViewBelowTopBar(view)
+            contentViewDelegate?.addViewBelowTopBar(view)
         }
     }
 
     open fun addViewBelowTopBar(@LayoutRes layoutRes: Int) {
         if(lifecycle.currentState.isAtLeast(Lifecycle.State.INITIALIZED)){
-            sDefaultContentViewDelegate?.addViewBelowTopBar(layoutRes)
+            contentViewDelegate?.addViewBelowTopBar(layoutRes)
         }
     }
 

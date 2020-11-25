@@ -7,15 +7,19 @@ import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.common.io.Files
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog
 import com.sovegetables.permission.DeniedHandler
 import com.sovegetables.permission.OnPermissionResultListener
 import com.sovegetables.permission.PermissionResult
 import com.sovegetables.permission.Permissions
 import kotlinx.android.synthetic.main.activity_permission_sample.*
-import java.lang.StringBuilder
+import java.io.File
+import java.nio.charset.StandardCharsets
 
 
 class PermissionSampleMainActivity : AppCompatActivity() {
@@ -80,11 +84,43 @@ class PermissionSampleMainActivity : AppCompatActivity() {
         })
 
 
+        val dirName = "/shineAndroid"
+        try {
+            val externalCacheDir = File(Environment.getExternalStorageDirectory().absolutePath + dirName)
+            Log.d("-------externalCacheDir--------", "onCreate: $externalCacheDir")
+            val flag = externalCacheDir.createNewFile()
+            Files.newWriter(externalCacheDir, StandardCharsets.UTF_8).write("abcdadfadfad")
+            Log.d("flag", "onCreate: $flag")
+        } catch (e: Exception) {
+            e.printStackTrace()
+            try {
+                val dir = File(externalCacheDir!!.absolutePath + dirName)
+                dir.createNewFile()
+                val newWriter = Files.newWriter(dir, StandardCharsets.UTF_8)
+                newWriter.write("abcdadfadfad")
+                newWriter.flush()
+                Log.d("-------dir--------", "onCreate: $dir")
+            } catch (e1: Exception) {
+                Log.d( "onCreate: ", e1.message)
+            }
+            try {
+                val dir2 = File(cacheDir!!.absolutePath +  dirName)
+                dir2.createNewFile()
+                val newWriter = Files.newWriter(dir2, StandardCharsets.UTF_8)
+                newWriter.write("abcdadfadfad")
+                newWriter.flush()
+                Log.d("-------dir2--------", "onCreate: $dir2")
+            } catch (e2: Exception) {
+                Log.d( "onCreate: ", e2.message)
+            }
+        }
         btn_sd_card.setOnClickListener {
             Permissions.request(this, arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), object :
                 OnPermissionResultListener {
 
                 override fun allGranted(grantedPermissions: ArrayList<PermissionResult>) {
+                    val cacheDir = File(Environment.getExternalStorageDirectory().absolutePath + dirName)
+                    Log.d("-------cacheDir--------", "onCreate: $externalCacheDir")
                     Toast.makeText(this@PermissionSampleMainActivity,"allGranted", Toast.LENGTH_SHORT).show()
                 }
 

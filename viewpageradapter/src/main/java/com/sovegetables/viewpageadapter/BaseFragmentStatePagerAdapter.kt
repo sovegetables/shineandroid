@@ -9,12 +9,12 @@ abstract class BaseFragmentStatePagerAdapter<T: Fragment>(fm: FragmentManager, b
 
     private var fragments : List<T>? = null
 
-    fun setData(fragments: List<T>?){
+    open fun setData(fragments: List<T>?){
         this.fragments = fragments
         notifyDataSetChanged()
     }
 
-    fun getData(): List<T>?{
+    open fun getData(): List<T>?{
         return fragments
     }
 

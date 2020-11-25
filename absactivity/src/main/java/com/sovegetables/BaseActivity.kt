@@ -15,12 +15,7 @@ import com.sovegetables.topnavbar.TopBar
 abstract class BaseActivity : AppCompatActivity(), IEmptyController, ILoadingDialogController, ILoadingController{
 
     companion object{
-        private var sDefaultContentViewDelegate: IContentView? = null
         @DrawableRes var leftTopItemIconRes = R.drawable.ic_delegate_arrow_back
-
-        fun setDefaultContentViewDelegate(defaultContentViewDelegate: IContentView?) {
-            sDefaultContentViewDelegate = defaultContentViewDelegate
-        }
 
         fun setLeftTopIcon(@DrawableRes res: Int) {
             leftTopItemIconRes = res
@@ -36,15 +31,17 @@ abstract class BaseActivity : AppCompatActivity(), IEmptyController, ILoadingDia
     protected lateinit var loadingDialogController: ILoadingDialogController
     protected lateinit var loadingController: ILoadingController
     protected lateinit var emptyController: IEmptyController
+    private lateinit var contentViewDelegate: IContentView
 
     @CallSuper
     override fun onCreate(savedInstanceState: Bundle?) {
         configSystemBar(createSystemBarConfig())
-        sDefaultContentViewDelegate = getContentViewDelegate<IContentView>()
-        if (sDefaultContentViewDelegate == null) {
-            sDefaultContentViewDelegate = DefaultIContentView()
+        var childContentViewDelegate = getContentViewDelegate<IContentView>()
+        if (childContentViewDelegate == null) {
+            childContentViewDelegate = DefaultIContentView()
         }
-        sDefaultContentViewDelegate!!.onCreate(savedInstanceState)
+        contentViewDelegate = childContentViewDelegate
+        contentViewDelegate.onCreate(savedInstanceState)
         super.onCreate(savedInstanceState)
     }
 
@@ -93,13 +90,13 @@ abstract class BaseActivity : AppCompatActivity(), IEmptyController, ILoadingDia
     }
 
     override fun setContentView(view: View?) {
-        val realContentView = sDefaultContentViewDelegate!!.onCreateContentView(view!!)
+        val realContentView = contentViewDelegate.onCreateContentView(view!!)
         super.setContentView(realContentView)
-        topBarAction = sDefaultContentViewDelegate!!.onCreateTopBarAction()
+        topBarAction = contentViewDelegate.onCreateTopBarAction()
         topBarAction.setUpTopBar(getTopBar())
-        loadingDialogController = sDefaultContentViewDelegate!!.getLoadingDialogController()
-        emptyController = sDefaultContentViewDelegate!!.getEmptyController()
-        loadingController = sDefaultContentViewDelegate!!.getLoadingController()
+        loadingDialogController = contentViewDelegate.getLoadingDialogController()
+        emptyController = contentViewDelegate.getEmptyController()
+        loadingController = contentViewDelegate.getLoadingController()
     }
 
     open fun getTopBar(): TopBar? {
@@ -111,11 +108,11 @@ abstract class BaseActivity : AppCompatActivity(), IEmptyController, ILoadingDia
     }
 
     open fun addViewBelowTopBar(view: View) {
-        sDefaultContentViewDelegate!!.addViewBelowTopBar(view)
+        contentViewDelegate.addViewBelowTopBar(view)
     }
 
     open fun addViewBelowTopBar(@LayoutRes layoutRes: Int) {
-        sDefaultContentViewDelegate!!.addViewBelowTopBar(layoutRes)
+        contentViewDelegate.addViewBelowTopBar(layoutRes)
     }
 
     override fun showEmpty(msg: String?, icon: Int, model: IEmptyController.Model?) {

@@ -43,6 +43,7 @@ class MainActivity : BaseActivity() {
         list.add(MainItem("BaseFragmentSample", FragmentSampleActivity::class.java))
         list.add(MainItem("FragmentPageSample", FragmentPageSampleActivity::class.java))
         list.add(MainItem("MarqueeTextViewSample", MarqueeTextViewActivity::class.java))
+        list.add(MainItem("大图片Sample", BigPictureActivity::class.java))
         adapter.items = list
         rv_sample.adapter = adapter
 

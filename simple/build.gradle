@@ -27,6 +27,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'com.google.guava:guava:29.0-android'
     implementation 'androidx.core:core-ktx:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     testImplementation 'junit:junit:4.12'
@@ -57,10 +58,12 @@ dependencies {
     implementation project(':textcrumbs')
     implementation project(':viewstubfragment')
     implementation project(':viewpageradapter')
-    implementation project(':marqueetextview')
 
     implementation 'com.github.bumptech.glide:glide:4.8.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'com.github.sovegetables:systembarhelper:0.1.7'
     implementation 'com.github.sovegetables.recyclerviewadapter:adapter:0.1.7'
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.5'
+    debugImplementation 'com.squareup.leakcanary:leakcanary-support-fragment:1.6.3'
 }
