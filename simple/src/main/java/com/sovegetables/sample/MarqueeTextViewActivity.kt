@@ -15,8 +15,8 @@ class MarqueeTextViewActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_marquee_text_view)
 
-        tv_marquee.setText("好哈佛爱活动复合大师粉红大是返回的萨芬")
-        tv_marquee_2.setText("发发大水发的说法大沙发的是非得失")
+//        tv_marquee.setText("好哈佛爱活动复合大师粉红大是返回的萨芬")
+//        tv_marquee_2.setText("发发大水发的说法大沙发的是非得失")
         tv_marquee_3.setText("三打发大水发大水发大水发大水发的说法嗯啊嗯啊打发打发第三方的")
 
         vertical_text.isVerticalMode = false

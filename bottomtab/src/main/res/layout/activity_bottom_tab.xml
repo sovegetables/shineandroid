@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    >
+
+    <com.sovegatable.bottomtab.tab.TabLayout
+        android:id="@+id/tab"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_alignParentBottom="true"
+        app:tabMode="fixed"
+        app:tabIndicatorHeight="0dp"
+        android:background="@android:color/white"
+        app:tabSelectedTextColor="?attr/colorAccent"
+        app:tabTextColor="@android:color/white"
+        app:tabBackground="?android:selectableItemBackground"
+        android:elevation="6dp"
+        >
+    </com.sovegatable.bottomtab.tab.TabLayout>
+
+    <com.sovegatable.bottomtab.SwitchableViewPager
+        android:id="@+id/vp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/tab"
+        >
+    </com.sovegatable.bottomtab.SwitchableViewPager>
+
+</RelativeLayout>

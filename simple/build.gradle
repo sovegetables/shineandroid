@@ -9,7 +9,7 @@ android {
     buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "com.sovegetables.util"
-        minSdkVersion 14
+        minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -41,6 +41,7 @@ dependencies {
 //    implementation 'com.github.sovegetables.shineandroid:retrofithelper:0.1.3'
 
     implementation project(':absactivity')
+    implementation project(':listactivity')
 //    implementation 'com.github.sovegetables.shineandroid:absactivity:0.1.3'
 
     implementation project(':kotandroid')
@@ -58,6 +59,7 @@ dependencies {
     implementation project(':textcrumbs')
     implementation project(':viewstubfragment')
     implementation project(':viewpageradapter')
+    implementation project(':bottomtab')
 
     implementation 'com.github.bumptech.glide:glide:4.8.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'

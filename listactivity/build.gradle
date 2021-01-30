@@ -12,6 +12,7 @@ android {
         versionCode 1
         versionName "1.0"
 
+        multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
     }
@@ -34,6 +35,7 @@ dependencies {
     implementation  'com.scwang.smart:refresh-layout-kernel:2.0.1'
     implementation  'com.scwang.smart:refresh-header-classics:2.0.1'
     implementation 'com.github.sovegetables.recyclerviewadapter:adapter:0.1.7'
+    implementation "androidx.lifecycle:lifecycle-extensions:2.1.0"
 
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation project(':absactivity')

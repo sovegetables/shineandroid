@@ -1,3 +1,4 @@
+include ':bottomtab'
 include ':simple', ':gsonhelper', ':retrofithelper', ':topnavbar', ':absactivity', ':kotandroid'
 rootProject.name='shineandroid'
 include ':logger'

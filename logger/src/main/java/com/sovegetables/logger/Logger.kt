@@ -1,7 +1,6 @@
 package com.sovegetables.logger
 
 import android.util.Log
-import java.lang.IllegalArgumentException
 
 class Logger private constructor() : ILog(){
 

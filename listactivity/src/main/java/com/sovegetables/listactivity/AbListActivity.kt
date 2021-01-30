@@ -3,12 +3,11 @@ package com.sovegetables.listactivity
 import android.os.Bundle
 import androidx.annotation.CallSuper
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import com.sovegetables.BaseActivity
 import com.sovegetables.adapter.AbsDelegationAdapter
-import java.lang.reflect.ParameterizedType
 
-abstract class AbListActivity<out V: ListViewModel> : BaseActivity() {
+abstract class AbListActivity<V: ListViewModel> : BaseActivity() {
 
     private lateinit var viewModel: V
 
@@ -25,13 +24,8 @@ abstract class AbListActivity<out V: ListViewModel> : BaseActivity() {
         setContentView(view)
         listContentController.onViewCreated(view, savedInstanceState)
         listContentController.setAdapter(getListAdapter())
-        viewModel = ViewModelProvider(viewModelStore, ViewModelProvider.NewInstanceFactory()).get(getVClass()!!)
-        viewModel.getLiveData().observe(this, object : Observer<List<AbListItem>>{
-            override fun onChanged(t: List<AbListItem>?) {
-                listContentController.setData(t)
-            }
-        })
-
+        viewModel = ViewModelProviders.of(this).get(getViewModelClass())
+        viewModel.getLiveData().observe(this, Observer<List<AbListItem>> { t -> listContentController.setData(t) })
         listContentController.setOnLoadMoreActionListener(object : OnLoadMoreActionListener{
             override fun loadMore() {
                 viewModel.loadMore()
@@ -40,22 +34,11 @@ abstract class AbListActivity<out V: ListViewModel> : BaseActivity() {
             override fun onRefresh() {
                 viewModel.loadFirst()
             }
-
         })
-
         viewModel.loadFirst()
     }
 
-    @SuppressWarnings("unchecked")
-    private fun getVClass(): Class<V>? {
-        val clazz: Class<*> = this.javaClass
-        val type = clazz.genericSuperclass
-        if (type is ParameterizedType) {
-            val typeArgs = type.actualTypeArguments
-            return typeArgs[0] as Class<V>
-        }
-        return null
-    }
+    protected abstract fun getViewModelClass(): Class<V>
 
     abstract fun getListAdapter(): AbsDelegationAdapter<List<*>>
 

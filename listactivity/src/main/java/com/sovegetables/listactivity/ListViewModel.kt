@@ -10,13 +10,14 @@ abstract class ListViewModel(private var page: Page? = null): ViewModel() {
     private val internalErrorLiveData = MutableLiveData<String>()
 
     companion object{
-
         private var sPage: Page? = null
-
         fun setDefaultPage(page: Page?){
             sPage = page
         }
+    }
 
+    protected fun successLiveData(): MutableLiveData<List<AbListItem>>{
+        return internalSuccessLiveData
     }
 
     fun getLiveData() : LiveData<List<AbListItem>>{
