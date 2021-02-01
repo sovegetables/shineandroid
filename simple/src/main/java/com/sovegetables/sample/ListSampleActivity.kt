@@ -15,24 +15,22 @@ class ListSampleActivity : AbListActivity<ListSampleActivity.BViewModel>() {
     }
 
     class BViewModel: ListViewModel(){
-        override fun onLoadEnd(currentPage: Page) {
-        }
-
-        override fun checkIfEnd(currentPage: Page): Boolean {
-            return true
-        }
 
         override fun loadData(currentPage: Int, pageSize: Int, page: Page) {
-            val items = arrayListOf<AbListItem>()
-            items.add(object : ViewItem{})
-            items.add(object : ViewItem{})
-            items.add(object : ViewItem{})
-            items.add(object : ViewItem{})
-            items.add(object : ViewItem{})
-            items.add(object : ViewItem{})
-            items.add(object : ViewItem{})
-            items.add(object : ViewItem{})
-            successLiveData().postValue(items)
+            Thread {
+                Thread.sleep(2000)
+                val items = arrayListOf<AbListItem>()
+                items.add(object : ViewItem{})
+                items.add(object : ViewItem{})
+                items.add(object : ViewItem{})
+                items.add(object : ViewItem{})
+                items.add(object : ViewItem{})
+                items.add(object : ViewItem{})
+                items.add(object : ViewItem{})
+                items.add(object : ViewItem{})
+                successLiveData().postValue(items)
+            }.start()
+
         }
 
     }

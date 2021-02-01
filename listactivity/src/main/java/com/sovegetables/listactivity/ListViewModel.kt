@@ -7,13 +7,17 @@ import androidx.lifecycle.ViewModel
 abstract class ListViewModel(private var page: Page? = null): ViewModel() {
 
     private val internalSuccessLiveData = MutableLiveData<List<AbListItem>>()
-    private val internalErrorLiveData = MutableLiveData<String>()
+    private val internalErrorLiveData = MutableLiveData<PageError>()
 
     companion object{
         private var sPage: Page? = null
+
         fun setDefaultPage(page: Page?){
             sPage = page
         }
+    }
+
+    interface PageError{
     }
 
     protected fun successLiveData(): MutableLiveData<List<AbListItem>>{
@@ -24,7 +28,7 @@ abstract class ListViewModel(private var page: Page? = null): ViewModel() {
         return internalSuccessLiveData
     }
 
-    fun getErrorLiveData(): LiveData<String>{
+    fun getErrorLiveData(): LiveData<PageError>{
         return internalErrorLiveData
     }
 
@@ -51,16 +55,8 @@ abstract class ListViewModel(private var page: Page? = null): ViewModel() {
 
     fun loadMore(){
         currentPage.currentPage += 1
-        if(checkIfEnd(currentPage)){
-            onLoadEnd(currentPage)
-        }else{
-            loadData(currentPage.currentPage, currentPage.pageSize, currentPage)
-        }
+        loadData(currentPage.currentPage, currentPage.pageSize, currentPage)
     }
-
-    protected abstract fun onLoadEnd(currentPage: Page)
-
-    protected abstract fun checkIfEnd(currentPage: Page): Boolean
 
     protected abstract fun loadData(currentPage: Int, pageSize: Int, page: Page)
 }

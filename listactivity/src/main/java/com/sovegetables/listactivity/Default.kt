@@ -10,7 +10,7 @@ import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener
 import com.sovegetables.adapter.AbsDelegationAdapter
 
-open class Default: IListContentController<List<AbListItem>> {
+open class Default(var pageBuilder: PageBuilder): IListContentController<List<AbListItem>> {
 
     private lateinit var mShineRecyclerView: RecyclerView
     private lateinit var mShineSmartRefreshLayout: SmartRefreshLayout
@@ -30,9 +30,11 @@ open class Default: IListContentController<List<AbListItem>> {
         footer.setFinishDuration(0)
         mShineSmartRefreshLayout.setRefreshHeader(header)
         mShineSmartRefreshLayout.setRefreshFooter(footer)
-        mShineSmartRefreshLayout.setEnableRefresh(true)
-        mShineSmartRefreshLayout.setEnableAutoLoadMore(true)
-        mShineSmartRefreshLayout.setEnableFooterFollowWhenNoMoreData(false)
+        mShineSmartRefreshLayout.setEnableRefresh(pageBuilder.enableRefresh)
+        mShineSmartRefreshLayout.setEnableLoadMore(pageBuilder.enableLoadMore)
+        mShineSmartRefreshLayout.setEnableAutoLoadMore(pageBuilder.enableAutoLoadMore)
+        mShineSmartRefreshLayout.setEnableFooterFollowWhenNoMoreData(true)
+        mShineSmartRefreshLayout.setEnableLoadMoreWhenContentNotFull(true)
         mShineSmartRefreshLayout.setOnRefreshLoadMoreListener(object : OnRefreshLoadMoreListener {
 
             override fun onLoadMore(refreshLayout: RefreshLayout) {
@@ -60,8 +62,10 @@ open class Default: IListContentController<List<AbListItem>> {
     }
 
     override fun onFinishedLoadMore() {
+        mShineSmartRefreshLayout.finishLoadMore()
     }
 
     override fun onFinishedRefreshing() {
+        mShineSmartRefreshLayout.finishRefresh()
     }
 }
