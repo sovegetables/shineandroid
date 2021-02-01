@@ -1,5 +1,5 @@
 package com.sovegatable.bottomtab;
 
 interface BottomBarContentLifecycle {
-    void current();
+    void onCurrent();
 }

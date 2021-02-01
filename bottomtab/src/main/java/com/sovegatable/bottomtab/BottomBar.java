@@ -70,7 +70,7 @@ public class BottomBar {
 
             @Override
             public void onPageSelected(int position) {
-                adapter.getItem(position).current();
+                adapter.getItem(position).onCurrent();
             }
 
             @Override

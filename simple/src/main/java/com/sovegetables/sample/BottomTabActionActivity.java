@@ -10,6 +10,8 @@ import androidx.annotation.Nullable;
 import com.sovegatable.bottomtab.BaseTabFragment;
 import com.sovegatable.bottomtab.BottomBar;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,75 +46,18 @@ public class BottomTabActionActivity extends com.sovegatable.bottomtab.BottomTab
         }
 
         @Override
-        public void onCreate(@Nullable Bundle savedInstanceState) {
-            Log.d(TAG, "onCreate: " + mContent);
-            super.onCreate(savedInstanceState);
-        }
-
-        @Override
-        protected void onCurrent() {
-        }
-
-        @Override
-        protected void onInitData() {
+        protected void onCreateViewAfterViewStubInflated(@NotNull View inflatedView, @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
 
         }
 
         @Override
-        protected void onInitView(View view) {
+        protected int layoutIdRes() {
+            return R.layout.fragment_item_tab;
         }
 
         @Override
-        protected int getLayoutId() {
-            return 0;
-        }
+        public void onCurrent() {
 
-        @Override
-        public void onStart() {
-            Log.d(TAG, "onStart: " + mContent);
-            super.onStart();
-        }
-
-        @Override
-        public void onResume() {
-            Log.d(TAG, "onResume: " + mContent);
-            super.onResume();
-        }
-
-        @Override
-        public void onPause() {
-            Log.d(TAG, "onPause: " + mContent);
-            super.onPause();
-        }
-
-        @Override
-        public void onStop() {
-            Log.d(TAG, "onStop: " + mContent);
-            super.onStop();
-        }
-
-        @Override
-        public void onDestroyView() {
-            Log.d(TAG, "onDestroyView: " + mContent);
-            super.onDestroyView();
-        }
-
-        @Override
-        public void onAttach(Context context) {
-            Log.d(TAG, "onAttach: " + mContent);
-            super.onAttach(context);
-        }
-
-        @Override
-        public void onDetach() {
-            Log.d(TAG, "onDetach: " + mContent);
-            super.onDetach();
-        }
-
-        @Override
-        public void onDestroy() {
-            Log.d(TAG, "onDestroy: " + mContent);
-            super.onDestroy();
         }
     }
 }
