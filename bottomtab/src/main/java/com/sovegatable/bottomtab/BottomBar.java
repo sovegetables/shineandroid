@@ -83,31 +83,37 @@ public class BottomBar {
             @Override
             public boolean onTabPreSelected(TabLayout.Tab tab) {
                 for (OnTabSelectedListener l: onTabSelectedListeners){
-                     if(l.onTabPreSelected((Item) tab.getTag())){
+                    Item item = getItem(tab);
+                    if(l.onTabPreSelected(item)){
                         return true;
                      }
                 }
                 return false;
             }
 
+            private Item getItem(TabLayout.Tab tab) {
+                int position = tab.getPosition();
+                return builder.mTabMap.get(position);
+            }
+
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 for (OnTabSelectedListener l: onTabSelectedListeners){
-                    l.onTabSelected((Item) tab.getTag());
+                    l.onTabSelected(getItem(tab));
                 }
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
                 for (OnTabSelectedListener l: onTabSelectedListeners){
-                    l.onTabUnselected((Item) tab.getTag());
+                    l.onTabUnselected(getItem(tab));
                 }
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
                 for (OnTabSelectedListener l: onTabSelectedListeners){
-                    l.onTabReselected((Item) tab.getTag());
+                    l.onTabReselected(getItem(tab));
                 }
             }
         });
@@ -280,6 +286,16 @@ public class BottomBar {
 
         public final int getPosition() {
             return position;
+        }
+
+        @Override
+        public String toString() {
+            return "Item{" +
+                    "mFragment=" + mFragment +
+                    ", mIcon=" + mIcon +
+                    ", mTitle=" + mTitle +
+                    ", position=" + position +
+                    '}';
         }
     }
 

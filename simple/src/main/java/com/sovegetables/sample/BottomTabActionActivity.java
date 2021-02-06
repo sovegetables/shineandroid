@@ -1,11 +1,8 @@
 package com.sovegetables.sample;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-
-import androidx.annotation.Nullable;
 
 import com.sovegatable.bottomtab.BaseTabFragment;
 import com.sovegatable.bottomtab.BottomBar;
@@ -16,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BottomTabActionActivity extends com.sovegatable.bottomtab.BottomTabActionActivity {
+
+    private static final String TAG = "BottomTabActionActivity";
 
     private List<BottomBar.Item> bottomBarItems() {
         List<BottomBar.Item> items = new ArrayList<>();
@@ -29,6 +28,28 @@ public class BottomTabActionActivity extends com.sovegatable.bottomtab.BottomTab
     protected BottomBar createBottomBar() {
         return new BottomBar.Builder(getSupportFragmentManager())
                 .addItems(bottomBarItems())
+                .addonTabSelectedListener(new BottomBar.OnTabSelectedListener() {
+                    @Override
+                    public boolean onTabPreSelected(BottomBar.Item tab) {
+                        Log.d(TAG, "onTabPreSelected: " + tab);
+                        return false;
+                    }
+
+                    @Override
+                    public void onTabSelected(BottomBar.Item tab) {
+                        Log.d(TAG, "onTabSelected: "+ tab);
+                    }
+
+                    @Override
+                    public void onTabUnselected(BottomBar.Item tab) {
+                        Log.d(TAG, "onTabUnselected: "+ tab);
+                    }
+
+                    @Override
+                    public void onTabReselected(BottomBar.Item tab) {
+                        Log.d(TAG, "onTabReselected: "+ tab);
+                    }
+                })
                 .build();
     }
 
