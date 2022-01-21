@@ -1,16 +1,12 @@
 package com.sovegetables.util;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonSyntaxException;
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.reflect.TypeToken;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -147,5 +143,12 @@ public class GsonHelperTest {
        String fromJson = "{\"name\":\"苹果\", \"price\":2.88222}";
        Fruit fruit = GsonHelper.fromJson(fromJson, Fruit.class);
        System.out.println(fruit);
+    }
+
+    @Test
+    public void test_(){
+        String fromJson = "{\"videoId\":-32632392,\"videoTitle\":\"sit ut\",\"videoCoverUrl\":\"consectetur reprehenderit sint nostrud aliquip\",\"videoDesc\":\"Ut\",\"videoUrl\":\"ut dolore laboris sit\",\"videoDuration\":41525543,\"videoSource\":\"id pariatur quis non\",\"collectStatus\":true,\"likeStatus\":\"consectetur dolore nostrud\"}";
+        VideoDetail detail = GsonHelper.cloneGsonBuilder().create().fromJson(fromJson, VideoDetail.class);
+        Assert.assertNull(detail);
     }
 }

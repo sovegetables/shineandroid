@@ -4,12 +4,8 @@ package com.sovegetables.util;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
-import com.google.gson.internal.$Gson$Types;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 
 public class GsonHelper {
@@ -21,13 +17,21 @@ public class GsonHelper {
         sGson = new GsonBuilder()
                 .registerTypeAdapter(Boolean.class, new MistakeBooleanDeserializer())
                 .registerTypeAdapter(boolean.class, new MistakeBooleanDeserializer())
+                .registerTypeAdapter(Integer.class, new MistakeIntForNumberDeserializer())
                 .registerTypeAdapter(Integer.class, new MistakeIntDeserializer())
+                .registerTypeAdapter(int.class, new MistakeIntForNumberDeserializer())
                 .registerTypeAdapter(int.class, new MistakeIntDeserializer())
+                .registerTypeAdapter(float.class, new MistakeFloatForNumberDeserializer())
                 .registerTypeAdapter(float.class, new MistakeFloatDeserializer())
+                .registerTypeAdapter(Float.class, new MistakeFloatForNumberDeserializer())
                 .registerTypeAdapter(Float.class, new MistakeFloatDeserializer())
+                .registerTypeAdapter(long.class, new MistakeLongForNumberDeserializer())
                 .registerTypeAdapter(long.class, new MistakeLongDeserializer())
+                .registerTypeAdapter(Long.class, new MistakeLongForNumberDeserializer())
                 .registerTypeAdapter(Long.class, new MistakeLongDeserializer())
+                .registerTypeAdapter(double.class, new MistakeDoubleForNumberDeserializer())
                 .registerTypeAdapter(double.class, new MistakeDoubleDeserializer())
+                .registerTypeAdapter(Double.class, new MistakeDoubleForNumberDeserializer())
                 .registerTypeAdapter(Double.class, new MistakeDoubleDeserializer())
                 .registerTypeAdapter(List.class, new MistakeListDeserializer())
                 .addSerializationExclusionStrategy(new SkipExclusionStrategy())
